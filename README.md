@@ -4,3 +4,7 @@
 
 # Argo Studio
 Argo Studio 面向 AI 视频创作者，连接创意构思、素材解析与生成工作流。
+
+## 系统要求
+
+macOS 26.0 及以上；Apple Silicon（M 系列芯片）。
