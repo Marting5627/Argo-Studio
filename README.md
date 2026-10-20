@@ -7,7 +7,7 @@
 <p align="center"><strong>从参考与想法，到镜头与成片。</strong></p>
 
 <p align="center">
-  <a href="https://github.com/Marting5627/Argo-Studio/releases/tag/v0.4.6.5-build24">下载公测版</a>
+  <a href="https://github.com/Marting5627/Argo-Studio/releases">下载公测版</a>
   ·
   <a href="https://github.com/Marting5627/Argo-Studio/releases">更新记录</a>
   ·
