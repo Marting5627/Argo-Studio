@@ -168,17 +168,6 @@ Argo 使用 `.agpk` 本地项目包保存跨工作区内容，包括素材登记
 |---|---|
 | 操作系统 | macOS 26.0 及以上 |
 | 芯片 | Apple Silicon（M 系列） |
-| 当前公测 | v0.4.6.5 Public build24 |
-| 普通安装文件 | `Argo-v0.4.6.5-Public-arm64.dmg` |
-
-1. 打开 [build24 发布页](https://github.com/Marting5627/Argo-Studio/releases/tag/v0.4.6.5-build24)，在 Assets 中下载上述 **DMG**。
-2. 如旧版正在运行，先保存项目并正常退出。
-3. 打开 DMG，将完整 `Argo.app` 拖入“应用程序”，再从“应用程序”启动。
-4. 后续可使用应用内“检查更新…”获取更新，并在安装后核对实际版本。
-
-Release 页面自动显示的 **Source code (zip / tar.gz) 不是安装包**。`Argo-v0.4.6.5-build24.zip` 用于应用更新，普通安装请选择 DMG。
-
-安装包包含本地制作所需的主要运行组件，普通用户不需要自行配置 Python 或 Homebrew。Eagle、第三方模型服务和官方视频 CLI 属于按需使用的外部组件。
 
 ## 公测反馈
 
