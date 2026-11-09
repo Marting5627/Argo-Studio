@@ -1,0 +1,3 @@
+interface:
+  display_name: "全局导演稿"
+  short_description: "整理简报、参考与逐镜规划，调用 Argo 原生导演生成全局预览"

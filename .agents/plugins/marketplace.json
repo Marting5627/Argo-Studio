@@ -1,0 +1,20 @@
+{
+  "name": "argo-studio-local",
+  "interface": {
+    "displayName": "Argo Studio"
+  },
+  "plugins": [
+    {
+      "name": "argo-studio",
+      "source": {
+        "source": "local",
+        "path": "./plugins/argo-studio"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Design"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+interface:
+  display_name: "分镜导演稿"
+  short_description: "把已有逐镜稿映射到新建或现有镜头，原生保存至工坊自定义稿"

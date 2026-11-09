@@ -1,0 +1,30 @@
+#!/bin/zsh
+set -euo pipefail
+argo_selected_plugin_root="${0:A:h:h}"
+if [[ $# != 1 || ! -d "$1/Contents" ]]; then
+  print -u2 '用法：./scripts/select-host "/实际安装位置/Argo.app"'
+  exit 1
+fi
+argo_selected_app="${1:A}"
+argo_selected_helper="$argo_selected_app/Contents/Helpers/ArgoMCP"
+/usr/bin/codesign --verify --deep --strict "$argo_selected_app" >/dev/null 2>&1 || {
+  print -u2 'Argo 签名校验未通过。'; exit 1
+}
+argo_selected_id=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$argo_selected_app/Contents/Info.plist")
+if [[ "$argo_selected_id" == 'com.martin.argo.native' ]]; then
+  /usr/bin/codesign -v -R='anchor apple generic and certificate leaf[subject.OU] = "54LA73Q4JT"' "$argo_selected_app" >/dev/null 2>&1 || {
+    print -u2 'Argo 正式签名身份不匹配。'; exit 1
+  }
+elif [[ ! "$argo_selected_id" =~ '^com\.martin\.argo\.candidate\.bugfix[0-9]+$' ]]; then
+  print -u2 '所选应用不是受支持的 Argo 宿主。'; exit 1
+fi
+[[ -x "$argo_selected_helper" ]] || { print -u2 '所选 Argo 尚未包含本机插件。'; exit 1; }
+argo_selected_descriptor=$("$argo_selected_helper" --describe-plugin-host) || { print -u2 '请升级 Argo 后再选择。'; exit 1; }
+argo_selected_reported_id=$(print -r -- "$argo_selected_descriptor" | /usr/bin/plutil -extract bundleID raw -o - -) || {
+  print -u2 '请升级 Argo 后再选择。'; exit 1
+}
+[[ "$argo_selected_reported_id" == "$argo_selected_id" ]] || { print -u2 'Argo helper 身份不匹配。'; exit 1; }
+"$argo_selected_helper" --check-plugin-requirements "$argo_selected_plugin_root/compatibility.json" >/dev/null || {
+  print -u2 '此 Argo 与当前插件不兼容，未更改宿主选择。'; exit 1
+}
+exec "$argo_selected_helper" --select-plugin-host

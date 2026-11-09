@@ -1,0 +1,75 @@
+#!/bin/zsh
+set -euo pipefail
+
+argo_plugin_root="${0:A:h:h}"
+argo_plugin_binding="$HOME/Library/Application Support/Argo/Plugin/selected-host.plist"
+# Explicit local selection wins. An unavailable selection never falls back to
+# another app. Without a choice, only the two documented official locations
+# are considered; two distinct installations require a choice, not max(build).
+if [[ -n "${ARGO_STUDIO_APP:-}" ]]; then
+  argo_plugin_app="$ARGO_STUDIO_APP"
+elif [[ -e "$argo_plugin_binding" || -L "$argo_plugin_binding" ]]; then
+  if [[ -L "$argo_plugin_binding" || ! -f "$argo_plugin_binding" || \
+        "$(/usr/bin/stat -f %u "$argo_plugin_binding")" != "$EUID" || \
+        "$(/usr/bin/stat -f %Lp "$argo_plugin_binding")" != '600' ]]; then
+    print -u2 '本机宿主选择记录无效；请重新选择 Argo。'
+    exit 1
+  fi
+  argo_plugin_app=$(/usr/libexec/PlistBuddy -c 'Print :applicationPath' "$argo_plugin_binding")
+  argo_plugin_selected_id=$(/usr/libexec/PlistBuddy -c 'Print :bundleID' "$argo_plugin_binding")
+elif [[ -d /Applications/Argo.app && -d "$HOME/Applications/Argo.app" && \
+        "${${:-/Applications/Argo.app}:A}" != "${${:-$HOME/Applications/Argo.app}:A}" ]]; then
+  print -u2 '检测到两个正式 Argo 安装位置；请先用 select-host 明确选择一个宿主。'
+  exit 1
+elif [[ -d /Applications/Argo.app ]]; then
+  argo_plugin_app='/Applications/Argo.app'
+elif [[ -d "$HOME/Applications/Argo.app" ]]; then
+  argo_plugin_app="$HOME/Applications/Argo.app"
+else
+  print -u2 '请先安装并打开支持 Argo Studio 插件的 Argo。'
+  exit 1
+fi
+argo_plugin_helper="$argo_plugin_app/Contents/Helpers/ArgoMCP"
+argo_plugin_info="$argo_plugin_app/Contents/Info.plist"
+argo_plugin_html="$argo_plugin_app/Contents/Resources/ArgoStudioPlugin/library.html"
+if [[ ! -x "$argo_plugin_helper" || ! -f "$argo_plugin_html" || ! -f "$argo_plugin_info" ]]; then
+  print -u2 '此 Argo 尚未包含素材面板支持，请更新 Argo；未连接其他候选。'
+  exit 1
+fi
+argo_plugin_id=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$argo_plugin_info")
+if [[ ! "$argo_plugin_id" =~ '^[A-Za-z0-9][A-Za-z0-9.-]+$' ]]; then
+  print -u2 'Argo 应用身份无效。'
+  exit 1
+fi
+if [[ -n "${argo_plugin_selected_id:-}" && "$argo_plugin_selected_id" != "$argo_plugin_id" ]]; then
+  print -u2 '所选 Argo 的应用身份已变化；未连接其他应用。请重新选择宿主。'
+  exit 1
+fi
+if [[ "$argo_plugin_id" != 'com.martin.argo.native' && \
+      ! "$argo_plugin_id" =~ '^com\.martin\.argo\.candidate\.bugfix[0-9]+$' ]]; then
+  print -u2 '所选应用不是受支持的 Argo 宿主。'
+  exit 1
+fi
+/usr/bin/codesign --verify --deep --strict "$argo_plugin_app" >/dev/null 2>&1 || {
+  print -u2 'Argo 签名校验未通过，请重新安装。'; exit 1
+}
+if [[ "$argo_plugin_id" == 'com.martin.argo.native' ]]; then
+  /usr/bin/codesign -v -R='anchor apple generic and certificate leaf[subject.OU] = "54LA73Q4JT"' "$argo_plugin_app" >/dev/null 2>&1 || {
+    print -u2 'Argo 正式签名身份不匹配，未连接。'; exit 1
+  }
+fi
+# The helper must understand the explicit contract option. No attempt is made
+# to run an old helper in a less restrictive mode when the probe is absent.
+argo_plugin_descriptor=$("$argo_plugin_helper" --describe-plugin-host) || {
+  print -u2 '此 Argo 尚未提供插件兼容检查，请升级宿主。'; exit 1
+}
+argo_plugin_reported_id=$(print -r -- "$argo_plugin_descriptor" | /usr/bin/plutil -extract bundleID raw -o - -) || {
+  print -u2 '此 Argo 尚未提供插件兼容合同，请升级宿主。'; exit 1
+}
+if [[ "$argo_plugin_reported_id" != "$argo_plugin_id" ]]; then
+  print -u2 'Argo helper 与应用身份不匹配，未连接。'; exit 1
+fi
+# The native Host owns endpoint validation and current-user socket admission.
+# No environment variable can supply an alternate project, source or writer.
+argo_plugin_endpoint="$HOME/Library/Application Support/Argo/LocalMCP/$argo_plugin_id.json"
+exec "$argo_plugin_helper" --endpoint "$argo_plugin_endpoint" --plugin-requirements "$argo_plugin_root/compatibility.json"

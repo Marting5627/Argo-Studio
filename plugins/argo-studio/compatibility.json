@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "pluginID": "argo-studio",
+  "pluginVersion": "0.0.5",
+  "mcpProtocol": "2025-11-25",
+  "applicationVersionMin": "0.4.7.0",
+  "businessMin": 1,
+  "businessMax": 1,
+  "panelMin": 1,
+  "panelMax": 1,
+  "requiredCapabilities": [
+    "compatibility.handshake.v1",
+    "objects.canonical.v1",
+    "library.read.v1",
+    "library.reference.v1",
+    "library.media.original.v1",
+    "library.media.video-frames.v1",
+    "library.preview.chunks.v1",
+    "attachment.transfer.v1",
+    "attachment.import.receipt.v1",
+    "approval.client.form.v1",
+    "session.reconnect.v1"
+  ],
+  "optionalCapabilities": ["library.openWith.v1"]
+}

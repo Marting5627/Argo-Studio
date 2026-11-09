@@ -1,0 +1,35 @@
+{
+  "name": "argo-studio",
+  "version": "0.0.5",
+  "description": "在聊天中使用 Argo 素材库和真实编号，生成全局导演稿，或将分镜稿导入工坊。",
+  "author": {
+    "name": "Argo Studio"
+  },
+  "keywords": [
+    "argo",
+    "media",
+    "storyboard",
+    "local"
+  ],
+  "interface": {
+    "displayName": "Argo Studio",
+    "shortDescription": "素材库、镜头与创作工具",
+    "longDescription": "连接本机 Argo，查看素材与完整编号、引用和导入媒体；通过全局导演稿、分镜导演稿两个 Skill 调用原生创作流程。",
+    "developerName": "Argo Studio",
+    "category": "Design",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "打开 Argo Studio 素材库",
+      "查看图片001和视频003",
+      "把这个视频加入 Argo 素材库"
+    ],
+    "brandColor": "#008BFF",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/icon.png"
+  },
+  "mcpServers": "./mcp.json",
+  "skills": "./skills/"
+}
