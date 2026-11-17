@@ -1,6 +1,6 @@
 {
   "name": "argo-studio",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "在聊天中使用 Argo 素材库和真实编号，将外部完整全局稿导入原生预览，或将分镜稿导入工坊。",
   "author": {
     "name": "Argo Studio"

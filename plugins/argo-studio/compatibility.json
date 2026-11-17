@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "pluginID": "argo-studio",
-  "pluginVersion": "0.1.0",
+  "pluginVersion": "0.1.1",
   "mcpProtocol": "2025-11-25",
-  "applicationVersionMin": "4.7.1",
+  "applicationVersionMin": "0.4.7.1",
   "businessMin": 2,
   "businessMax": 2,
   "panelMin": 1,
