@@ -7,19 +7,38 @@
 <p align="center"><strong>从参考与想法，到镜头与成片。</strong></p>
 
 <p align="center">
-  <a href="https://github.com/Marting5627/Argo-Studio/releases">下载公测版</a>
+  <a href="https://github.com/Marting5627/Argo-Studio/releases">下载 Mac 应用</a>
+  ·
+  <a href="INSTALL-PLUGIN.md">安装 Codex 插件</a>
   ·
   <a href="https://github.com/Marting5627/Argo-Studio/releases">更新记录</a>
   ·
   <a href="https://github.com/Marting5627/Argo-Studio/issues">问题反馈</a>
 </p>
 
+## 下载应用或安装插件
+
+本仓库提供两个独立入口：
+
+| 需要什么 | 入口 |
+|---|---|
+| 在 Mac 上使用 Argo Studio | [下载 Mac 应用](https://github.com/Marting5627/Argo-Studio/releases) |
+| 在 Codex 聊天中使用 Argo 素材与工具 | **[安装 Codex 插件](INSTALL-PLUGIN.md)** |
+
+新电脑安装插件时，可直接把这句话发给那台电脑上的 AI：
+
+```text
+请按 https://github.com/Marting5627/Argo-Studio/blob/main/INSTALL-PLUGIN.md 帮我安装 Argo Studio 正式 Codex 插件。
+```
+
+插件源为本仓库，安装索引是 [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json)，实际插件位于 [`plugins/argo-studio`](plugins/argo-studio)。它是包含 MCP 连接、素材面板和创作 Skill 的完整插件。
+
 Argo Studio 是面向 Apple Silicon Mac 的视频创作工作区。它用一个本地项目串联素材管理、拉片分析、导演创作、画板、视频生成、剪辑和配乐，让参考素材、镜头稿件、生成候选与时间线能够衔接使用。
 
 你可以从一段参考视频、一组图片或一个想法开始：拆解镜头、讨论创意、编写分镜，在画板上组织参考，制作和比较候选，再进入原生时间线完成画面、声音与导出。
 
 
-Argo Studio 是闭源客户端。本仓库用于发布安装包、更新记录和使用说明，不包含客户端源代码。
+Argo Studio Mac 应用是闭源客户端；本仓库同时发布应用安装包、更新记录，以及可安装的 Codex 插件文件和说明，不包含 Mac 应用源代码。
 
 ## 适合谁
 
@@ -179,17 +198,12 @@ Argo 使用 `.agpk` 本地项目包保存跨工作区内容，包括素材登记
 
 请勿提交 API Key、令牌或未经处理的私人素材。模型能力、媒体格式与导出组合仍在持续验证，清晰的复现步骤能帮助我们改进后续版本。
 
-## ChatGPT / Codex 插件
+## Codex 插件与 ChatGPT 桌面客户端
 
-正式插件 **Argo Studio 0.1.1**，要求 Argo **0.4.7.1 或更新的兼容版本**。插件通过本仓库插件目录安装与更新；Releases 仅用于软件安装包。
+正式插件 **Argo Studio 0.1.1**，要求 Argo **0.4.7.1 或更新的兼容版本**。插件通过本仓库插件目录安装与更新；Releases 仅用于 Mac 应用安装包。
 
-在支持本机插件的客户端中，通过本仓库安装：
+**[安装 Codex 插件](INSTALL-PLUGIN.md)**：新电脑安装、可直接发给 AI 的指令、更新和连接步骤。
 
-```sh
-codex plugin marketplace add https://github.com/Marting5627/Argo-Studio.git --ref main
-codex plugin add argo-studio@argo-studio-local
-```
+在支持本机插件与 MCP Apps 的 ChatGPT 桌面客户端中，也可使用同一插件。安装和重新加载方式以客户端支持的功能为准。
 
-已使用本仓库作为安装源时，可先运行 `codex plugin marketplace upgrade argo-studio-local` 刷新来源，再更新插件。客户端是否即时加载由其插件机制决定；本地 Test 版不会自动替换成正式版。
-
-[插件目录](plugins/argo-studio) · [插件使用、兼容性与权限](plugins/argo-studio/README.md)
+[插件目录](plugins/argo-studio) · [插件使用与权限](plugins/argo-studio/README.md) · [实际版本文件](plugins/argo-studio/.codex-plugin/plugin.json)

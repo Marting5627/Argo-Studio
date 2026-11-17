@@ -1,7 +1,7 @@
 {
   "name": "argo-studio-local",
   "interface": {
-    "displayName": "Argo Studio"
+    "displayName": "Argo Studio 插件"
   },
   "plugins": [
     {
