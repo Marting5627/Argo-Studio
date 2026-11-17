@@ -33,6 +33,8 @@
 请按 https://github.com/Marting5627/Argo-Studio/blob/main/INSTALL-PLUGIN.md 帮我安装 Argo Studio 正式 Codex 插件。
 ```
 
+**首次安装并启用插件后，请正常退出并重新打开 ChatGPT／Codex 桌面客户端一次，再打开 Argo Studio 面板。** 关闭聊天或右侧面板不能替代这一步。
+
 插件源为本仓库，安装索引是 [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json)，实际插件位于 [`plugins/argo-studio`](plugins/argo-studio)。它是包含 MCP 连接、素材面板和创作 Skill 的完整插件。
 
 Argo Studio 是面向 Apple Silicon Mac 的视频创作工作区。它用一个本地项目串联素材管理、拉片分析、导演创作、画板、视频生成、剪辑和配乐，让参考素材、镜头稿件、生成候选与时间线能够衔接使用。

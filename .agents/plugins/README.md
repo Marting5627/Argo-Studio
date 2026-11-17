@@ -2,6 +2,8 @@
 
 本目录是 Codex 识别 **Argo Studio 插件**的安装索引，不是 Mac 应用下载页。
 
+**首次安装并启用插件后，请正常退出并重新打开 ChatGPT／Codex 桌面客户端一次，再打开 Argo Studio 面板。** 关闭聊天或右侧面板不能替代这一步。
+
 **[安装 Codex 插件：新电脑安装、可复制指令与更新方法](../../INSTALL-PLUGIN.md)**
 
 - [marketplace.json](marketplace.json)：插件来源索引，指向 `plugins/argo-studio`。

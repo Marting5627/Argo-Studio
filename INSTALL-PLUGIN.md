@@ -16,6 +16,7 @@ Git 安装源：https://github.com/Marting5627/Argo-Studio.git，分支 main
 插件目录：plugins/argo-studio
 插件标识：argo-studio@argo-studio-local
 请按当前 main 分支的安装说明安装完整插件，并核对实际安装版本；不是只安装里面的 Skill，也不是下载 Mac 应用。
+安装并启用后，请提醒我正常退出并重新打开桌面客户端一次，再验证插件；不要直接结束我正在使用的客户端进程。
 ```
 
 ## 在终端安装
@@ -29,13 +30,15 @@ codex plugin add argo-studio@argo-studio-local
 
 第一条命令添加本仓库为插件来源，第二条安装 **Argo Studio**。`argo-studio-local` 是正式插件来源的固定名称；测试插件使用独立标识 `argo-studio-test`。
 
-安装后在桌面客户端的插件管理中确认 **Argo Studio** 已启用。如果尚未出现，按客户端提示重新加载；仍未出现时正常退出并重开客户端一次。
+**首次安装并启用插件后，请正常退出并重新打开 ChatGPT／Codex 桌面客户端一次，再打开 Argo Studio 面板。** 关闭聊天或右侧面板不能替代这一步。
+
+在 macOS 中可按 ⌘Q 正常退出客户端，再重新打开。确认插件已启用后，发送「打开素材库」。
 
 ## 连接 Argo
 
-1. 在同一台 Mac 打开 Argo 和需要使用的工程。
+1. 在同一台 Mac 打开 Argo。
 2. 在 Argo「设置 → Bridges」启用本机连接，按需要选择「请求批准」。
-3. 回到聊天客户端，选择 **Argo Studio**，发送「打开素材库」。看到当前工程名称及素材后，即可使用。
+3. 回到已重新打开的聊天客户端，选择 **Argo Studio**，发送「打开素材库」。面板可先打开；查看工程素材时，再打开并保存对应工程。
 
 另一台电脑需要在那台电脑上安装应用、启用连接并授权自己的素材。安装源不会携带原电脑的工程、API Key 或本机连接授权。
 
