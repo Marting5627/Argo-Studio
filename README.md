@@ -6,6 +6,8 @@
 
 <p align="center"><strong>从参考与想法，到镜头与成片。</strong></p>
 
+<p align="center">Mac 应用界面框架：<strong>SwiftUI · AppKit</strong></p>
+
 <p align="center">
   <a href="https://github.com/Marting5627/Argo-Studio/releases">下载 Mac 应用</a>
   ·
