@@ -17,6 +17,9 @@ elif [[ -e "$argo_plugin_binding" || -L "$argo_plugin_binding" ]]; then
   fi
   argo_plugin_app=$(/usr/libexec/PlistBuddy -c 'Print :applicationPath' "$argo_plugin_binding")
   argo_plugin_selected_id=$(/usr/libexec/PlistBuddy -c 'Print :bundleID' "$argo_plugin_binding")
+elif [[ "${ARGO_STUDIO_PLUGIN_CHANNEL:-user}" == 'test' ]]; then
+  print -u2 '请先使用测试插件的 select-host 明确选择验收宿主；不会自动打开正式 Argo。'
+  exit 1
 elif [[ -d /Applications/Argo.app && -d "$HOME/Applications/Argo.app" && \
         "${${:-/Applications/Argo.app}:A}" != "${${:-$HOME/Applications/Argo.app}:A}" ]]; then
   print -u2 '检测到两个正式 Argo 安装位置；请先用 select-host 明确选择一个宿主。'
@@ -60,7 +63,7 @@ if [[ "$argo_plugin_id" == 'com.martin.argo.native' ]]; then
 fi
 # The helper must understand the explicit contract option. No attempt is made
 # to run an old helper in a less restrictive mode when the probe is absent.
-argo_plugin_descriptor=$("$argo_plugin_helper" --describe-plugin-host) || {
+argo_plugin_descriptor=$("$argo_plugin_helper" --check-plugin-requirements "$argo_plugin_root/compatibility.json") || {
   print -u2 '此 Argo 尚未提供插件兼容检查，请升级宿主。'; exit 1
 }
 argo_plugin_reported_id=$(print -r -- "$argo_plugin_descriptor" | /usr/bin/plutil -extract bundleID raw -o - -) || {
@@ -72,4 +75,8 @@ fi
 # The native Host owns endpoint validation and current-user socket admission.
 # No environment variable can supply an alternate project, source or writer.
 argo_plugin_endpoint="$HOME/Library/Application Support/Argo/LocalMCP/$argo_plugin_id.json"
-exec "$argo_plugin_helper" --endpoint "$argo_plugin_endpoint" --plugin-requirements "$argo_plugin_root/compatibility.json"
+argo_plugin_follow=()
+if [[ -z "${ARGO_STUDIO_APP:-}" ]]; then
+  argo_plugin_follow+=(--supervise-selected-host)
+fi
+exec "$argo_plugin_helper" --endpoint "$argo_plugin_endpoint" --plugin-requirements "$argo_plugin_root/compatibility.json" "${argo_plugin_follow[@]}"

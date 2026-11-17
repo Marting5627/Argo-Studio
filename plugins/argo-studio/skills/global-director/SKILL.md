@@ -1,18 +1,24 @@
 ---
 name: global-director
-description: 将外部简报、参考和逐镜规划交给 Argo 生成全局导演稿预览；已有逐镜正文直接入工坊时使用 shot-director。
+description: 在外部聊天生成完整六板块全局导演稿，通过 MCP 导入 Argo 原生全局预览；已有逐镜正文直接入工坊时使用 shot-director。
 ---
 
 # 全局导演稿
 
-整理外部聊天的创作意图，由 Argo 当前原生导演路线生成全局预览。预览不是正式稿；用户仍在 Argo 查看、编辑、采纳和保存。
+默认由当前外部聊天完成创作，将结构完整的全局稿导入 Argo 原生预览，不调用 Argo 内部模型重复生成。预览不是正式稿；用户仍在 Argo 查看、编辑、采纳、保存和创建或映射镜头。
 
-仅改模型、选中候选集合或生成参数时，沿当前工具目录使用 `argo_generation_dinspect` / `argo_generation_dprepare`，不调用本正文工具；`lane` 是正文通道，不是选中候选集合。
+先用 `argo_tools` 查询所需区域，再按完整 `tool` 读取该项输入/输出合同；不遍历全部工具。导演工具通过 `argo_director`，工坊工具通过 `argo_workshop` 调用，参数统一为 `{tool:"原生工具ID",arguments:{…}}`。
 
-1. 整理简报、必须保留项、排除项、逐镜正文与顺序、每镜时长、总时长和比例。按当前工具 Schema 组织输入，时长使用毫秒且合计一致；每镜 `localID` 唯一，`shotID` 省略或传 null，每镜比例与总比例一致。本次明确发起的新计划使用新的 UUID `planID`，它不是批准。
-2. 对话沿用当前工程完整软件编号，如 `Shot01`、`Shot03-C2-A`、`图片001`。通过 `argo_resolve_object` 核对对象，执行参数使用返回的稳定句柄；不从顺序或同名猜对象。工程、目标或来源变化后重新核对。
-3. 需要理解素材时先调用 `argo_read_asset_media` 读取真实来源；保留同一对象、完整编号和 `sourceRevision`，传回时复用这份绑定。视频抽样不能证明逐帧检查或音轨识别。区分外部创作来源与原生导演附件：客户端可读视频整理简报，但当前 `generateGlobal` 的 `references` 只接受图片。文字交接视频来源时保留完整编号、稳定句柄和 `sourceRevision`，注明未作为原生附件；不把视频绑定当作图片，不自动抽帧入库或换模型。用户要求 Argo 原生直接读视频而能力不支持时停止。图片引用明确角色、用途及使用/忽略字段；内联 `mentions` 只绑定本镜 `references`，`location`/`length` 使用原文 UTF-16 位置，`token` 与原文完全一致，无内联引用时传空数组。
-4. 调用 `argo_director_dgenerateGlobal`，沿用本次实际授权的模型路线和外发范围。使用真正客户端批准表单批准这一次导演请求及费用披露；正文同意不是批准，客户端不支持确认时停止提交。Skill 不授予远端请求权限，也不固定测试模型、镜头数、次数或预算。
-5. 返回 `operationRef` 后，只用 `argo_operation_status` 查询同一操作；等待、超时、UNKNOWN 或后续聊天模型失败都不自动重发。`operationRef` 仅当前连接有效；失效、撤权、取消或暂停后，只读核对已保存状态与真实回执，证据不足即停止，不换 `planID` 重做。仅凭真实回执报告 `previewReady` 与 `formalDraftSaved=false`，引导用户在 Argo 全局导演稿区域采纳，不替用户接受未知输出。
+工坊每个 Shot 只有一套当前提示词，分“自定义／导演稿”两来源；A–D仅选择生成候选，正文不带 `lane`。模型、候选或参数差异统一经 `generation.proposal` 提交：单项只传该字段，多项可一起传，省略保持、null拒绝；先用 `generation.inspect` 与当前选项核对。清型号用 `clearModel:true`，移除型号参数用 `clearModelParameters`，取消全部候选用 `candidateLanes:[]`。接受提案后在生成板核对；“覆盖参数”沿同一 `generation.apply` 一次确认后直接保存并回读新版本，不进入本地草稿恢复流程。生成仍分别确认报价与提交。外部不能修改设置或读取本地模型连接配置；业务渠道、模型、缓存余额和有效报价按工坊合同读取。
 
-原生素材类型、模型能力、容量、冲突、批准和保存校验是业务合同，不是 QA 限制。被拒绝时说明原因并保留计划，不静默换路线、丢引用或绕过校验；已成功的步骤与后续失败分别报告。
+1. 整理简报、必须保留项、排除项、镜头顺序、每镜时长、总时长和比例。先检查 `argo_plugin_status`，宿主必须支持 `director.global-preview.external.v1`；不支持时明确要求兼容宿主，不回退到内部 API。
+2. 对话沿用完整软件编号，如 `Shot01`、`Shot03-C2-A`、`图片001`。通过 `argo_resolve_object` 核对真实对象；需要理解素材时调用 `argo_read_asset_media`，保留完整编号、稳定句柄和 `sourceRevision`。不能按顺序、缩略图或旧描述猜内容。视频抽样不证明逐帧或音轨检查。
+3. 经 `argo_director` 调用 `director.globalTemplate`，按本次真实 `referenceIDs` 读取原生 `schemaJSON`、模板、六板块说明、`contractVersion`、`contractHash`、`expectedRevision` 和 `referenceLimits`。三类引用按真实素材身份跨全稿去重计数，不能把素材库总量当引用数；超限交由用户调整，不丢引用或修改设置。它与后续提示词汇总不是同一格式。来源、工程、引用或上限变化后重新读取，不能照抄旧版本合同。
+4. 在外部聊天生成完整稿件：全片约束、比例、总时长，以及每镜唯一临时 `id`、标题、时长、完整六板块、引用和问题项。按原生字段组织，毫秒合计必须一致；临时镜头 ID 不是现有 Shot 身份。引用使用真实稳定对象与版本，不把正文里的 `@` 字样当作已绑定引用。
+5. 为明确的新导入计划创建 UUID `planID`，附上来源、当前合同身份、工作区版本和 `draft`，调用 `director.validateGlobalDraft`。根据返回的字段路径在外部修正错误；不调用内部模型补写、丢章节、改时长或收费回退。
+6. 校验通过后调用 `director.importGlobalDraft`，使用真正客户端批准表单接受一次。确认摘要只展示操作、范围和必要引用，正文仍在聊天与预览中，完整输入由计划绑定。若返回 `operationRef`，仅查询同一操作；超时、UNKNOWN、断连或模型后续回复失败都不重做。
+7. 只根据真实回执报告预览状态。`previewReady` 不等于已保存正式稿，导入不自动创建 Shot。引导用户在 Argo 原生全局预览审阅、接受并保存，再创建或映射镜头；没有原生回执不能宣布这些步骤完成。导入链路的 `modelRequestsStarted=0` 仅指未新增 Argo 内部模型请求，不代表外部聊天无 token 消耗。
+
+仅当用户明确选择由 Argo 内部 API 生成时，才使用现有 `director.generateGlobal`。这是独立的模型请求与批准流程，不作为外部稿校验失败的补救；型号、镜头数、次数和预算按用户需求及实际能力确定。
+
+遵循原生素材类型、模型能力、容量、冲突、批准和保存规则。被拒绝时说明原因并保留计划，不静默换路线、丢引用或绕过校验；已完成和失败步骤分别报告。

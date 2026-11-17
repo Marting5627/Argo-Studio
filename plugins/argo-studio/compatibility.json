@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "pluginID": "argo-studio",
-  "pluginVersion": "0.0.5",
+  "pluginVersion": "0.1.0",
   "mcpProtocol": "2025-11-25",
-  "applicationVersionMin": "0.4.7.0",
-  "businessMin": 1,
-  "businessMax": 1,
+  "applicationVersionMin": "4.7.1",
+  "businessMin": 2,
+  "businessMax": 2,
   "panelMin": 1,
   "panelMax": 1,
   "requiredCapabilities": [
@@ -19,7 +19,19 @@
     "attachment.transfer.v1",
     "attachment.import.receipt.v1",
     "approval.client.form.v1",
-    "session.reconnect.v1"
+    "session.reconnect.v1",
+    "director.global-preview.external.v1",
+    "tools.area-discovery.v1",
+    "settings.external-readonly.v1",
+    "settings.model-config-private.v1",
+    "generation.business-status.v1",
+    "director.external-document-only.v1",
+    "references.shared-limits.v1",
+    "generation.board.proposals.v2",
+    "generation.prompt.shared.v1",
+    "generation.parameters.direct-apply.v1",
+    "connection.follow-selected-host.v1",
+    "resources.live-snapshot.v1"
   ],
   "optionalCapabilities": ["library.openWith.v1"]
 }

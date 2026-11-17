@@ -178,3 +178,18 @@ Argo 使用 `.agpk` 本地项目包保存跨工作区内容，包括素材登记
 - 去除私人内容后的截图或报错文字。
 
 请勿提交 API Key、令牌或未经处理的私人素材。模型能力、媒体格式与导出组合仍在持续验证，清晰的复现步骤能帮助我们改进后续版本。
+
+## ChatGPT / Codex 插件
+
+正式插件 **Argo Studio 0.1.0**，要求 Argo **4.7.1 或更新的兼容版本**。本次只发布插件，不更新软件安装包。
+
+在支持本机插件的客户端中，通过本仓库安装：
+
+```sh
+codex plugin marketplace add https://github.com/Marting5627/Argo-Studio.git --ref main
+codex plugin add argo-studio@argo-studio-local
+```
+
+已使用本仓库作为安装源时，可先运行 `codex plugin marketplace upgrade argo-studio-local` 刷新来源，再更新插件。客户端是否即时加载由其插件机制决定；本地 Test 版不会自动替换成正式版。
+
+[下载插件 0.1.0](https://github.com/Marting5627/Argo-Studio/releases/tag/argo-studio-v0.1.0) · [插件使用、兼容性与权限](plugins/argo-studio/README.md)
