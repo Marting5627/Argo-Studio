@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><!-- sparkle-sign-warning:
 IMPORTANT: This file was signed by Sparkle. Any modifications to this file requires re-signing this file with generate_appcast or sign_update! The signed signature will be embedded at the end of this file.
---><rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0"><channel><title>Argo Studio Beta</title><item><title>Argo 4.7.1 (252)</title><sparkle:channel>beta</sparkle:channel><sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion><enclosure url="https://github.com/Marting5627/Argo-Studio/releases/download/v4.7.1-build252/Argo-v4.7.1-build252.zip" length="374427031" type="application/octet-stream" sparkle:version="252" sparkle:shortVersionString="4.7.1" sparkle:edSignature="cxcUlDY85/y+wTbqd1fqd9xgPy3r8tghyR3eHTrY7xJx853O3souo9HfO6sU/Kz0aw/zYolSyC82GOBpA/Y9CQ=="></enclosure></item></channel></rss><!-- sparkle-signatures:
-edSignature: ML4xTUpBc5skswLSBLSYo/6uE4eHjya91yuskkN5Ew6Bf2WkQ+JxBvARx3UZAXe4R+Gl/pQYAXQ+FxxWPp1SAw==
-length: 932
+--><rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0"><channel><title>Argo Studio Beta</title><item><title>Argo 0.4.7.1 (253)</title><sparkle:channel>beta</sparkle:channel><sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion><enclosure url="https://github.com/Marting5627/Argo-Studio/releases/download/v0.4.7.1-build253/Argo-v0.4.7.1-build253.zip" length="374427037" type="application/octet-stream" sparkle:version="253" sparkle:shortVersionString="0.4.7.1" sparkle:edSignature="spHL4YGbakKu1+gDHuw8DuT1U/vDK6ePwACj8MrRAhLhoSQiDrtrWY893+ae3EQxNID40kX+ymZSOkgnL/VhDQ=="></enclosure></item></channel></rss><!-- sparkle-signatures:
+edSignature: MgxjJJEuVuk5mpnXeYxL4RIXNh++LuMzhMIWnwXksD5C/uS8YTFTHHDw2cww/nG57W8t0Q1QFGqiOxnUZW+NDA==
+length: 940
 -->
