@@ -79,4 +79,4 @@ argo_plugin_follow=()
 if [[ -z "${ARGO_STUDIO_APP:-}" ]]; then
   argo_plugin_follow+=(--supervise-selected-host)
 fi
-exec "$argo_plugin_helper" --endpoint "$argo_plugin_endpoint" --plugin-requirements "$argo_plugin_root/compatibility.json" "${argo_plugin_follow[@]}"
+exec "$argo_plugin_root/scripts/panel-bridge" -- "$argo_plugin_helper" --endpoint "$argo_plugin_endpoint" --plugin-requirements "$argo_plugin_root/compatibility.json" "${argo_plugin_follow[@]}"

@@ -1,0 +1,1249 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Argo Studio</title>
+<style>
+:root{color-scheme:light dark;--bg:#fff;--raised:#f5f5f7;--text:#202124;--muted:#7b7d82;--line:#e5e5e7;--accent:#008bff;--selected:#e5f2ff;--danger:#b84b31;font-family:"Argo Harmony","Argo Harmony SC","HarmonyOS Sans","HarmonyOS Sans SC",sans-serif;font-size:13px}
+@media(prefers-color-scheme:dark){:root{--bg:#181818;--raised:#252525;--text:#eee;--muted:#a4a4a7;--line:#383838;--selected:#16334d;--danger:#ffae8c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text)}button,input{font:inherit;color:inherit}button{cursor:pointer;border:1px solid transparent;background:var(--raised);border-radius:8px;min-height:32px;padding:5px 11px}button:hover{filter:brightness(.95)}button:disabled{opacity:.4;cursor:default}button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}button.primary{background:var(--accent);color:white}svg{width:17px;height:17px;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:1.7}header{display:flex;align-items:center;gap:10px;padding:15px 16px 12px;border-bottom:1px solid var(--line)}header .brand{width:27px;height:27px;border:1px solid var(--line);border-radius:7px;display:grid;place-items:center;color:var(--accent);background:var(--raised);font-weight:700;font-size:18px}h1{margin:0;font-size:15px;font-weight:650}#project{font-size:11px;color:var(--muted);margin-top:2px;max-width:180px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.grow{flex:1;min-width:0}.icon{width:32px;padding:5px}#app{height:100dvh;min-height:300px;display:flex;flex-direction:column}.filters{padding:12px 16px 8px;display:grid;gap:10px}.search{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:8px;padding:7px 10px;color:var(--muted)}.search input{border:0;outline:0;background:transparent;min-width:0;width:100%;font-size:12px}.tabs{display:flex;gap:3px;padding:3px;background:var(--raised);border-radius:8px}.tabs button{flex:1;min-height:27px;padding:3px 6px;background:transparent;font-size:12px}.tabs button[aria-pressed=true]{background:var(--bg);box-shadow:0 1px 3px #0001;color:var(--accent)}#message{margin:0 16px;font-size:12px;color:var(--muted);line-height:1.5;white-space:pre-wrap}#message.error{color:var(--danger)}#message:empty{display:none}main{min-height:0;flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;padding:12px 16px}main::-webkit-scrollbar{display:none}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px 10px;align-content:start}.asset{border:0;border-radius:0;padding:0;background:transparent;text-align:left;min-width:0;color:var(--text);position:relative;align-self:start}.asset:hover{filter:none}.preview{aspect-ratio:4/3;display:grid;place-items:center;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--raised);color:var(--muted)}.preview img{width:100%;height:100%;object-fit:contain;display:block}.preview svg{width:26px;height:26px;opacity:.7}.asset[aria-pressed=true] .preview{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent);background:var(--selected)}.check{position:absolute;right:6px;top:6px;border:1.3px solid #fff;background:#3337;border-radius:50%;width:16px;height:16px;color:white;font-size:10px;display:grid;place-items:center}.asset[aria-pressed=true] .check{background:var(--accent);border-color:white}.name{font-size:12px;line-height:1.45;font-weight:500;margin-top:5px;white-space:normal;overflow-wrap:anywhere;display:block}.state{display:block;font-size:10px;line-height:1.35;color:var(--muted);margin-top:2px}.tag{position:absolute;left:5px;bottom:5px;background:#222a;color:#fff;border-radius:4px;padding:1px 4px;font-size:9px}.empty{min-height:180px;display:grid;place-content:center;justify-items:center;gap:9px;color:var(--muted);font-size:13px}.empty svg{width:34px;height:34px;opacity:.55}#more{display:block;margin:17px auto 5px;font-size:12px}#more[hidden]{display:none}footer{display:flex;gap:8px;align-items:center;padding:12px 16px;border-top:1px solid var(--line);background:var(--bg)}#selection{flex:1;font-size:11px;color:var(--muted)}#transfer{padding:10px 16px;border-top:1px solid var(--line);display:grid;gap:7px;font-size:12px}#transfer[hidden]{display:none}.transfer-row{display:flex;align-items:center;gap:10px}.transfer-row span{flex:1;overflow-wrap:anywhere}progress{width:100%;height:4px;accent-color:var(--accent)}#transferCancel{min-height:24px;font-size:11px;background:none;color:var(--muted);padding:1px 5px}.license{position:fixed;inset:16px;z-index:4;display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 60px #0002;padding:15px;gap:12px}.license[hidden]{display:none}.license pre{flex:1;min-height:0;overflow:auto;white-space:pre-wrap;font:inherit;font-size:11px;line-height:1.6;margin:0}.license h2{font-size:14px;margin:0}.license button{align-self:flex-end}.subtle{background:none;font-size:10px;color:var(--muted);padding:0;min-height:20px}.bottom{padding:0 16px 5px;text-align:right}@media(max-width:270px){header,.filters,main,footer{padding-left:10px;padding-right:10px}header .brand{display:none}#selection{display:none}}
+#playerMedia video::-webkit-media-controls-fullscreen-button{display:none!important}
+</style>
+<style>#playerOpenGroup[hidden]{display:none}</style>
+<style>
+#contextMenu{position:fixed;z-index:10;min-width:150px;padding:4px;background:var(--bg);border:1px solid var(--line);border-radius:9px;box-shadow:0 5px 20px #0003}#contextMenu[hidden]{display:none}#contextMenu button{width:100%;text-align:left;background:transparent}#contextMenu button:hover{background:var(--raised)}
+</style>
+<style>
+#player{position:fixed;z-index:20;top:50%;transform:translateY(-50%);left:12px;right:12px;max-height:calc(100dvh - 24px);overflow:auto;border:1px solid var(--line);border-radius:12px;background:var(--bg);box-shadow:0 12px 45px #0004}#player[hidden]{display:none}#playerBackdrop{position:fixed;inset:0;z-index:19;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);background:#00000008}#playerBackdrop[hidden]{display:none}#player header{padding:10px;gap:7px}#playerTitle{font-weight:600;overflow-wrap:anywhere;min-width:0}#player .player-body{padding:0 10px 10px}#playerMedia video,#playerMedia img{display:block;width:100%;max-height:65dvh;object-fit:contain;background:#111;border-radius:7px}#player audio{display:block;width:100%}#playerStatus{font-size:12px;color:var(--muted);margin:10px 0 0;white-space:pre-wrap}#playerStatus:empty{display:none}#playerProgress[hidden]{display:none}#playerClose{font-size:21px;line-height:1;flex:0 0 30px;min-height:30px;padding:2px}#playerWays{font-size:12px;white-space:nowrap}
+</style>
+<style>
+#player[data-presentation=page]{inset:0;transform:none;width:100%;height:100dvh;max-height:none;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;overflow:hidden}#player[data-presentation=page]>header{flex:none;min-width:0}#player[data-presentation=page] .player-body{display:flex;flex-direction:column;flex:1;min-height:0;gap:8px;overflow:hidden}#player[data-presentation=page] #playerMedia{display:flex;align-items:center;justify-content:center;flex:1;min-width:0;min-height:0;overflow:hidden;background:#111;border-radius:7px}#player[data-presentation=page] #playerMedia video,#player[data-presentation=page] #playerMedia img{width:100%;height:100%;min-width:0;min-height:0;max-height:100%;object-fit:contain;border-radius:0}#player[data-presentation=page] #playerStatus{flex:none;max-height:25dvh;overflow:auto;margin:0}#player[data-presentation=page] #playerProgress{flex:none}
+</style>
+<style>
+#scroll{overscroll-behavior-y:contain}#playerOpenGroup{display:flex;align-items:center;flex:none;border:1px solid var(--line);border-radius:18px;background:var(--raised)}#playerOpenGroup button{background:transparent;min-height:30px;height:30px}#playerOpenDefault{display:flex;align-items:center;gap:6px;border-radius:18px 0 0 18px;padding:4px 8px 4px 10px}#playerOpenDefault img,#playerOpenMenu img{width:18px;height:18px;object-fit:contain}#playerWays{display:grid;place-items:center;flex:none;width:30px;height:30px;border-radius:0 18px 18px 0;border-left:1px solid var(--line);padding:0;line-height:0}#playerWays svg{display:block;width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}#playerOpenMenu{position:absolute;z-index:22;right:42px;top:45px;min-width:180px;max-width:calc(100% - 55px);max-height:45dvh;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:4px;box-shadow:0 8px 25px #0003}#playerOpenMenu::-webkit-scrollbar{display:none}#playerOpenMenu[hidden]{display:none}#playerOpenMenu button{display:flex;align-items:center;gap:7px;text-align:left;width:100%;background:transparent;padding:6px 8px;overflow-wrap:anywhere}#playerOpenMenu button:hover{background:var(--raised)}
+</style>
+<style>
+#player .player-actions{justify-content:flex-end;padding:10px;border-top:1px solid var(--line)}#player{scrollbar-width:none}#player::-webkit-scrollbar{display:none}
+#libraryImport{margin-left:auto}#libraryFooter #selection{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}#refresh{display:grid;place-items:center;line-height:0}#refresh svg{display:block;stroke-linecap:round;stroke-linejoin:round}#refresh[aria-busy=true] svg{animation:refresh-spin .8s linear infinite}@keyframes refresh-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){#refresh[aria-busy=true] svg{animation:none}}
+</style>
+<style>
+#app>header{flex-shrink:0}
+#player>header{border-bottom:0}
+#playerOpenMenu{position:fixed;z-index:40;right:auto;min-width:0;max-width:none;max-height:320px;padding:5px;border-radius:15px;box-shadow:0 5px 22px #0002;overscroll-behavior:contain}
+#playerOpenMenu button{min-height:36px;padding:7px 10px;border:0;border-radius:10px;font-size:13px;font-weight:400}
+#playerOpenMenu button:hover,#playerOpenMenu button:focus-visible{background:var(--raised);filter:none;outline:none}
+#playerOpenMenu .workspace-check{margin-left:auto;flex:none}
+.preview .check .panel-icon-check{width:12px;height:12px;opacity:1}
+.workspace-picker{position:relative;flex:none}
+button.workspace-trigger{display:flex;align-items:center;gap:5px;height:32px;min-height:32px;padding:5px 10px;border:1px solid transparent;border-radius:8px;background:var(--raised);white-space:nowrap;font-size:13px;font-weight:500}
+.workspace-trigger svg{width:12px;height:12px;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--muted)}
+.workspace-menu{position:absolute;z-index:30;right:0;top:calc(100% + 7px);width:164px;max-width:calc(100vw - 24px);padding:5px;border:1px solid var(--line);border-radius:15px;background:var(--bg);box-shadow:0 5px 22px #0002}
+.workspace-menu[hidden]{display:none}
+.workspace-menu button{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;min-height:36px;padding:7px 10px;border:0;border-radius:10px;background:transparent;text-align:left;font-size:13px;font-weight:400}
+.workspace-menu button:hover,.workspace-menu button:focus-visible{background:var(--raised);filter:none;outline:none}
+.workspace-check{font-size:16px;line-height:1;color:var(--muted);visibility:hidden}
+.workspace-menu [aria-selected=true] .workspace-check{visibility:visible}
+:root{--panel-footer-block:12px;--panel-footer-inline:16px;--panel-footer-gap:12px;--panel-action-height:32px;--panel-action-radius:8px;--panel-action-inline:9px;--panel-action-block:6px;--panel-action-font-size:12px;--panel-action-font-weight:400}
+.panel-footer{display:flex;align-items:center;justify-content:space-between;flex:none;gap:var(--panel-footer-gap);padding:var(--panel-footer-block) var(--panel-footer-inline);border-top:1px solid var(--line);background:var(--bg)}
+.panel-footer button{font:inherit;font-size:var(--panel-action-font-size);font-weight:var(--panel-action-font-weight);height:var(--panel-action-height);min-height:var(--panel-action-height);border-radius:var(--panel-action-radius);padding:var(--panel-action-block) var(--panel-action-inline);white-space:nowrap}
+#libraryFooter{flex-wrap:nowrap}
+#libraryFooter #copy{display:none}
+#libraryFooter #libraryImport{margin-left:auto}
+@media(max-width:270px){:root{--panel-footer-inline:10px}}
+</style>
+<style>
+:root{--panel-space-1:4px;--panel-space-2:8px;--panel-space-3:12px;--panel-space-4:16px;--panel-inset:16px;--panel-label-width:76px;--panel-label-size:12px;--panel-control-height:32px;--panel-control-radius:8px;--panel-control-inline:10px;--panel-menu-inset:4px;--panel-menu-radius:15px;--panel-menu-row-height:36px;--panel-menu-row-radius:10px;--panel-footer-block:var(--panel-space-3);--panel-footer-inline:var(--panel-inset);--panel-footer-gap:var(--panel-space-3);--panel-action-height:var(--panel-control-height);--panel-action-radius:var(--panel-control-radius);--panel-action-inline:var(--panel-control-inline);--panel-action-block:6px}
+button{min-height:var(--panel-control-height);border-radius:var(--panel-control-radius);padding:6px var(--panel-control-inline)}
+#app>header{gap:var(--panel-space-2);padding:var(--panel-space-3) var(--panel-inset)}#app>header .brand{width:28px;height:28px;border-radius:var(--panel-control-radius)}#refresh{width:var(--panel-control-height);height:var(--panel-control-height);padding:var(--panel-space-1)}
+button.workspace-trigger{gap:var(--panel-space-2);height:var(--panel-control-height);min-height:var(--panel-control-height);padding:6px var(--panel-control-inline);border-radius:var(--panel-control-radius)}
+.filters{padding:var(--panel-space-3) var(--panel-inset) 0;gap:10px}.search{height:var(--panel-control-height);padding:0 var(--panel-control-inline);gap:var(--panel-space-2);border-radius:var(--panel-control-radius)}.search input{font-size:12px}
+.tabs{height:var(--panel-control-height);gap:3px;padding:3px;background:var(--raised);border-radius:var(--panel-control-radius)}.tabs button{height:calc(var(--panel-control-height) - 6px);min-height:calc(var(--panel-control-height) - 6px);padding:3px 6px;font-size:12px}.tabs button[aria-pressed=true]{background:var(--bg);box-shadow:0 1px 3px #0001;color:var(--accent)}
+.filters{flex-shrink:0}.library-viewport{position:relative;isolation:isolate;display:flex;flex:1;min-height:0;padding-top:var(--panel-space-2);overflow:hidden;background:var(--bg)}
+.library-viewport::before,.library-viewport::after{content:"";position:absolute;z-index:1;left:0;right:0;height:3px;pointer-events:none;opacity:0}.library-viewport::before{top:var(--panel-space-2);background:linear-gradient(to bottom,var(--bg),transparent)}.library-viewport::after{bottom:0;background:linear-gradient(to top,var(--bg),transparent)}.library-viewport[data-fade-top=true]::before,.library-viewport[data-fade-bottom=true]::after{opacity:1}
+#scroll{padding:0 var(--panel-inset) var(--panel-space-4);min-height:0;flex:1}.grid{gap:var(--panel-space-3)}.preview{border-radius:var(--panel-control-radius)}.name{margin-top:var(--panel-space-1);line-height:1.5}.preview .state{display:block;margin:0;padding:var(--panel-space-2);font-size:12px;line-height:1.4;text-align:center;color:var(--muted)}#message{margin:0 var(--panel-inset)}#more{margin:var(--panel-space-4) auto 0}
+.workspace-menu,#playerOpenMenu,#contextMenu{padding:var(--panel-menu-inset);border-radius:var(--panel-menu-radius);box-shadow:0 5px 22px #0002}.workspace-menu{top:calc(100% + var(--panel-space-2))}
+.workspace-menu button,#playerOpenMenu button,#contextMenu button{min-height:var(--panel-menu-row-height);padding:var(--panel-space-2) var(--panel-space-3);border-radius:var(--panel-menu-row-radius);font-size:13px;font-weight:400}
+#player>header{padding:var(--panel-space-3);gap:var(--panel-space-2)}#player .player-body{padding:0 var(--panel-space-3) var(--panel-space-3)}#transfer{padding:var(--panel-space-3) var(--panel-inset);gap:var(--panel-space-2)}
+@media(max-width:270px){:root{--panel-inset:10px;--panel-label-width:64px}}
+</style>
+</head>
+<body><div id="app">
+<header><img class="brand" alt="" aria-hidden="true" src="data:image/png;base64,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"><div class="grow"><h1>Argo Studio</h1><div id="project">正在连接…</div></div><button id="refresh" class="icon" title="刷新素材库" aria-label="刷新素材库"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M5.2 8a7.5 7.5 0 0 1 12.9-2L20 9M4 15l1.9 3A7.5 7.5 0 0 0 18.8 16"/></svg></button><div id="workspacePicker" class="workspace-picker"><button id="workspace" class="workspace-trigger" value="assets" type="button" aria-label="区域" aria-haspopup="listbox" aria-expanded="false" aria-controls="workspaceMenu"><span id="workspaceTitle">素材库</span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></button><div id="workspaceMenu" class="workspace-menu" role="listbox" aria-label="区域" hidden><button type="button" role="option" data-workspace="assets" aria-selected="true"><span>素材库</span><span class="workspace-check" aria-hidden="true"></span></button><button type="button" role="option" data-workspace="generation" aria-selected="false"><span>生成板</span><span class="workspace-check" aria-hidden="true"></span></button></div></div></header>
+<div class="filters"><label class="search"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.8"/><path d="m16 16 4.5 4.5"/></svg><input id="search" type="search" placeholder="搜索素材" aria-label="搜索素材编号"></label><div class="tabs" aria-label="素材类型"><button data-kind="all" aria-pressed="true">全部</button><button data-kind="image" aria-pressed="false">图片</button><button data-kind="video" aria-pressed="false">视频</button><button data-kind="audio" aria-pressed="false">音频</button></div></div>
+<div id="message" role="status" aria-live="polite"></div><div id="projectNotice" hidden style="margin:8px 16px"><button id="switchProject">更换项目</button></div><div id="libraryViewport" class="library-viewport"><main id="scroll"><div class="grid" id="grid"></div><button id="more" hidden>加载更多</button></main></div>
+<div id="contextMenu" role="menu" hidden><button id="playInPage" role="menuitem">在右侧播放</button></div>
+<div id="transfer" hidden><div class="transfer-row"><span id="transferName"></span><button id="transferCancel">取消</button></div><progress id="progress" max="1" value="0"></progress><span id="transferState"></span></div>
+<footer id="libraryFooter" class="panel-footer"><button id="copy" hidden disabled>复制编号</button><button id="reference" disabled>引用素材</button><span id="selection" aria-live="polite">未选择素材</span><button id="libraryImport" class="primary">导入素材</button></footer>
+<section id="generationBoard" hidden aria-label="生成板"></section>
+</div>
+<script>(function (global) {
+  'use strict';
+  const terminal = new Set(['saved', 'completed', 'applied', 'failed', 'denied', 'cancelled', 'uncertain', 'needsReconciliation', 'interrupted', 'expired']);
+  const clone = value => JSON.parse(JSON.stringify(value));
+  function panelIcon(kind) {
+    const namespace = 'http://www.w3.org/2000/svg', svg = document.createElementNS(namespace, 'svg'), path = document.createElementNS(namespace, 'path');
+    svg.setAttribute('viewBox', kind === 'chevron' ? '0 0 12 12' : '0 0 16 16'); svg.setAttribute('class', 'panel-icon panel-icon-' + kind); svg.setAttribute('data-panel-icon', kind); svg.setAttribute('aria-hidden', 'true');
+    path.setAttribute('d', kind === 'chevron' ? 'M3 4.5 6 7.5 9 4.5' : 'M3 8.5 6.5 12 13 3.5'); svg.append(path); return svg;
+  }
+  let openMenu = null, menuSequence = 0;
+  const enhancedSelects = new WeakMap();
+  function closeMenu(restoreFocus = false) {
+    if (!openMenu) return;
+    const { trigger, menu } = openMenu; openMenu = null;
+    menu.remove(); trigger.setAttribute('aria-expanded', 'false');
+    if (restoreFocus && trigger.isConnected) trigger.focus();
+  }
+  function positionMenu(menu, trigger) {
+    const rect = trigger.getBoundingClientRect(), edge = 12, gap = 6;
+    const width = Math.min(Math.max(rect.width, 164), Math.max(0, innerWidth - edge * 2));
+    menu.style.width = width + 'px'; menu.style.maxHeight = '320px';
+    const height = Math.min(menu.scrollHeight, 320), below = innerHeight - rect.bottom - edge - gap, above = rect.top - edge - gap;
+    const downward = below >= Math.min(height, 160) || below >= above;
+    menu.style.maxHeight = Math.max(0, Math.min(320, downward ? below : above)) + 'px';
+    menu.style.left = Math.max(edge, Math.min(rect.left, innerWidth - width - edge)) + 'px';
+    menu.style.top = (downward ? Math.max(edge, rect.bottom + gap) : Math.max(edge, rect.top - gap - Math.min(height, above))) + 'px';
+  }
+  function menuKeyboard(menu, event, close) {
+    const items = [...menu.querySelectorAll('button:not(:disabled)')];
+    if (!items.length) return;
+    const index = items.indexOf(document.activeElement);
+    if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
+      event.preventDefault(); event.stopPropagation();
+      const next = event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : Math.max(0, Math.min(items.length - 1, index + (event.key === 'ArrowUp' ? -1 : 1)));
+      items[next].focus(); items[next].scrollIntoView({ block: 'nearest' });
+    } else if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); close(true); }
+    else if (event.key === 'Tab') close(true);
+  }
+  function enhanceSelects(root) {
+    for (const source of root.querySelectorAll('select')) {
+      if (enhancedSelects.has(source)) { enhancedSelects.get(source)(); continue; }
+      const trigger = document.createElement('button'), title = document.createElement('span'), caret = panelIcon('chevron');
+      trigger.type = 'button'; trigger.className = 'panel-select-trigger'; trigger.id = (source.id || 'panelSelect' + (++menuSequence)) + 'Trigger';
+      trigger.setAttribute('role', 'combobox'); trigger.setAttribute('aria-haspopup', 'listbox'); trigger.setAttribute('aria-expanded', 'false');
+      trigger.setAttribute('aria-label', source.getAttribute('aria-label') || '选择'); trigger.dataset.field = source.dataset.field || '';
+      caret.classList.add('panel-select-caret'); trigger.append(title, caret);
+      source.dataset.menuSource = 'true'; source.setAttribute('aria-hidden', 'true'); source.tabIndex = -1; source.removeAttribute('aria-label'); source.after(trigger);
+      const sync = () => { title.textContent = source.selectedOptions[0]?.textContent || '未选择'; trigger.disabled = source.disabled; if (trigger.disabled && openMenu?.trigger === trigger) closeMenu(); };
+      const open = (direction = 0) => {
+        if (source.disabled) return;
+        if (openMenu?.trigger === trigger) { closeMenu(true); return; }
+        closeMenu();
+        const menu = document.createElement('div'); menu.className = 'panel-menu panel-select-menu'; menu.id = trigger.id + 'List'; menu.setAttribute('role', 'listbox'); menu.setAttribute('aria-label', trigger.getAttribute('aria-label'));
+        for (const option of source.options) {
+          const item = document.createElement('button'), label = document.createElement('span'), check = document.createElement('span');
+          item.type = 'button'; item.setAttribute('role', 'option'); item.setAttribute('aria-selected', String(option.selected)); item.disabled = option.disabled; item.tabIndex = -1;
+          label.textContent = option.textContent; check.className = 'panel-menu-check'; check.append(panelIcon('check')); check.setAttribute('aria-hidden', 'true'); item.append(label, check);
+          item.onclick = () => { const changed = source.value !== option.value; source.value = option.value; sync(); closeMenu(true); if (changed) source.dispatchEvent(new Event('change', { bubbles: true })); };
+          menu.append(item);
+        }
+        menu.onkeydown = event => menuKeyboard(menu, event, closeMenu); document.body.append(menu);
+        openMenu = { trigger, menu }; trigger.setAttribute('aria-controls', menu.id); trigger.setAttribute('aria-expanded', 'true'); positionMenu(menu, trigger);
+        const items = [...menu.querySelectorAll('button:not(:disabled)')], selected = items.findIndex(item => item.getAttribute('aria-selected') === 'true');
+        const index = direction === -2 ? items.length - 1 : direction === 2 ? 0 : selected < 0 ? (direction < 0 ? items.length - 1 : 0) : selected;
+        items[index]?.focus(); items[index]?.scrollIntoView({ block: 'nearest' });
+      };
+      trigger.onclick = () => open();
+      trigger.onkeydown = event => { if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) { event.preventDefault(); open(event.key === 'Home' ? 2 : event.key === 'End' ? -2 : event.key === 'ArrowUp' ? -1 : 1); } };
+      source.addEventListener('change', sync); new MutationObserver(sync).observe(source, { attributes: true, childList: true, subtree: true }); enhancedSelects.set(source, sync); sync();
+    }
+  }
+  document.addEventListener('pointerdown', event => { if (openMenu && !openMenu.menu.contains(event.target) && !openMenu.trigger.contains(event.target)) closeMenu(); }, true);
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && openMenu) { event.preventDefault(); event.stopImmediatePropagation(); closeMenu(true); } }, true);
+  document.addEventListener('scroll', event => { if (openMenu && !openMenu.menu.contains(event.target)) closeMenu(); }, true);
+  global.addEventListener('resize', () => { if (openMenu) positionMenu(openMenu.menu, openMenu.trigger); });
+  global.ArgoPanelMenus = { enhance: enhanceSelects, close: closeMenu, keyboard: menuKeyboard, position: positionMenu, icon: panelIcon };
+  const style = `
+    [hidden]{display:none!important}
+    .panel-icon{display:block;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}.panel-icon-chevron{width:12px;height:12px;stroke-width:1.5}.panel-icon-check{width:16px;height:16px;stroke-width:1.25}
+    #generationBoard{display:flex;flex:1;flex-direction:column;min-height:0;font:inherit;color:var(--text)}#generationBoard[hidden]{display:none}
+    select,textarea{font:inherit;color:var(--text);background:var(--raised);border:1px solid var(--line);border-radius:var(--panel-control-radius,8px);min-width:0}
+    select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+    .gb-toolbar{display:grid;grid-template-columns:var(--panel-label-width,76px) minmax(0,1fr);align-items:center;gap:var(--panel-space-3,12px);padding:var(--panel-space-4,16px) var(--panel-inset,16px) var(--panel-space-3,12px);flex:none}
+    .gb-scope-label{font-size:var(--panel-label-size,12px);font-weight:550}.gb-select{display:inline-flex;align-items:center;width:100%;min-width:0;max-width:100%;height:var(--panel-control-height,32px);border:1px solid var(--line);border-radius:var(--panel-control-radius,8px);background:var(--raised)}
+    .gb-select select{width:100%;max-width:100%;border:0;background:transparent}.gb-select:has(.panel-select-trigger:focus-visible){outline:2px solid var(--accent);outline-offset:2px}.gb-select .panel-select-trigger:focus-visible{outline:none}
+    .gb-content{flex:1;min-height:0;overflow:auto;overflow-x:hidden;padding:0 var(--panel-inset,16px) var(--panel-space-4,16px);scrollbar-width:none}.gb-content::-webkit-scrollbar{display:none}
+    .gb-status{font-size:12px;line-height:1.5;color:var(--muted);white-space:pre-wrap;margin:0 0 var(--panel-space-3,12px)}.gb-status:empty{display:none}.gb-status.error{color:var(--danger)}
+    .gb-form{min-width:0}.gb-parameters{display:grid;gap:var(--panel-space-3,12px);background:transparent;padding:0}.gb-parameters h2{margin:0;font-size:13px;line-height:20px;font-weight:650}
+    .gb-field{display:grid;grid-template-columns:var(--panel-label-width,76px) minmax(0,1fr);align-items:center;gap:var(--panel-space-3,12px);min-width:0;min-height:var(--panel-control-height,32px)}
+    .gb-label{font-size:var(--panel-label-size,12px);font-weight:550;line-height:1.5}.gb-control{min-width:0;font-size:13px}.gb-control small{display:block;color:var(--muted);font-size:11px;line-height:1.4;margin-top:var(--panel-space-1,4px)}
+    .gb-duration{display:flex;align-items:center;gap:var(--panel-space-2,8px);min-width:0;height:var(--panel-control-height,32px)}.gb-duration input[type=range]{min-width:0;width:100%;flex:1;accent-color:var(--text);height:20px;margin:0}
+    .gb-duration-number{display:flex;align-items:center;gap:var(--panel-space-1,4px);flex:none}.gb-duration input[type=number]{width:48px;min-width:0;height:var(--panel-control-height,32px);min-height:var(--panel-control-height,32px);padding:4px 6px;border:1px solid var(--line);border-radius:var(--panel-control-radius,8px);text-align:right;background:var(--bg);font-size:13px;appearance:textfield}.gb-duration input::-webkit-inner-spin-button{appearance:none}.gb-duration-unit{font-size:12px;color:var(--muted)}
+    .gb-lanes{display:flex;gap:var(--panel-space-1,4px)}.gb-lanes button,.gb-prompt-source button{flex:1;min-width:0;height:var(--panel-control-height,32px);min-height:var(--panel-control-height,32px);padding:4px var(--panel-space-2,8px);font:inherit;font-size:13px;border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:var(--panel-control-radius,8px)}
+    .gb-lanes button[aria-pressed=true],.gb-prompt-source button[aria-pressed=true]{border-color:var(--accent);color:#fff;background:var(--accent)}
+    .gb-prompt{margin-top:var(--panel-space-4,16px);border-top:1px solid var(--line);font-size:12px}.gb-prompt>summary{padding:var(--panel-space-3,12px) 0;line-height:16px;color:var(--muted);cursor:pointer}
+    .gb-prompt-head{margin-bottom:var(--panel-space-2,8px)}.gb-prompt-source{display:flex;gap:var(--panel-space-2,8px);width:100%}
+    select[data-menu-source]{display:none!important}
+    .panel-select-trigger{display:flex;align-items:center;justify-content:space-between;gap:var(--panel-space-2,8px);width:100%;min-width:0;height:calc(var(--panel-control-height,32px) - 2px);min-height:calc(var(--panel-control-height,32px) - 2px);padding:0 var(--panel-control-inline,10px);border:0;border-radius:inherit;background:transparent;font:inherit;font-size:13px;color:var(--text);text-align:left}
+    .panel-select-trigger>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.panel-select-caret{flex:none;color:var(--muted)}
+    .panel-menu{position:fixed;z-index:40;min-width:0;padding:var(--panel-menu-inset,4px);border:1px solid var(--line);border-radius:var(--panel-menu-radius,15px);background:var(--bg);box-shadow:0 5px 22px #0002;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:none}
+    .panel-menu::-webkit-scrollbar{display:none}.panel-menu button{display:flex;align-items:center;justify-content:space-between;gap:var(--panel-space-4,16px);width:100%;min-height:var(--panel-menu-row-height,36px);padding:var(--panel-space-2,8px) var(--panel-space-3,12px);border:0;border-radius:var(--panel-menu-row-radius,10px);background:transparent;color:var(--text);text-align:left;font:inherit;font-size:13px;font-weight:400;overflow-wrap:anywhere}
+    .panel-menu button>span:first-child{min-width:0}.panel-menu button:hover,.panel-menu button:focus-visible{background:var(--raised);filter:none;outline:none}.panel-menu button:disabled{opacity:.4;cursor:default}.panel-menu button:disabled:hover{background:transparent}
+    .panel-menu-check{flex:none;font-size:16px;line-height:1;color:var(--muted);visibility:hidden}.panel-menu [aria-selected=true] .panel-menu-check{visibility:visible}
+    .gb-prompt textarea{display:block;resize:vertical;min-height:116px;max-height:none;width:100%;padding:var(--panel-space-3,12px);line-height:1.55;font-size:12px}
+    .gb-footer{flex-wrap:wrap}.gb-footer .gb-quote{flex-basis:100%;font-size:11px;color:var(--muted);line-height:1.4;text-align:right}.gb-quote:empty{display:none}#gbGenerate{margin-left:auto}
+    .gb-empty{padding:var(--panel-space-4,16px) 0;color:var(--muted);font-size:12px;text-align:center}
+    @media(max-width:270px){.gb-toolbar,.gb-field{grid-template-columns:64px minmax(0,1fr);gap:var(--panel-space-2,8px)}.gb-toolbar,.gb-content{padding-left:10px;padding-right:10px}.gb-duration{gap:4px}.gb-duration input[type=number]{width:38px}}
+  `;
+  function mount(root, bridge) {
+    const sheet = document.createElement('style'); sheet.textContent = style; root.append(sheet);
+    const content = document.createElement('div');
+    content.innerHTML = '<div class="gb-toolbar"><label class="gb-scope-label" for="gbTargetTrigger">范围</label><span class="gb-select gb-target"><select id="gbTarget" aria-label="生成范围"></select></span></div><main class="gb-content"><div id="gbStatus" class="gb-status" role="status" aria-live="polite"></div><div id="gbForm" class="gb-form"></div></main><footer class="panel-footer gb-footer"><span id="gbQuote" class="gb-quote" aria-live="polite"></span><button id="gbApply" disabled>覆盖参数</button><button id="gbGenerate" class="primary" disabled>生成候选</button></footer>';
+    // Keep the scrolling region and footer as direct flex children.
+    root.append(...content.childNodes);
+    const $ = id => root.querySelector('#' + id);
+    let active = false, busy = false, loading = false, epoch = 0, target = '', project = '', proposals = [], targets = [];
+    let refreshTimer, activeUntil = Date.now() + 30000;
+    let refreshFlight = null, refreshRequested = false, forceRefreshRequested = false;
+    let state = null, preparation = null, selectedProposal = null, quote = null, dirty = false, optionTimer, quoteTimer;
+    let touched = new Set(), parameterTouched = new Set();
+    const retainedDrafts = new Map(), staleProposals = new Set(), maximumSnapshotPages = 64;
+    let preferredProposalID = null;
+    let discoveryProject = null, discoveryReady = false, discoveryInFlight = false, prefetchedProposals = null;
+    const seenProposals = new Map();
+    const drafts = new Map(), savedBaselines = new Map(), pendingSaves = new Map(), invalidatedSavedRevisions = new Map();
+    let snapshotRevision = null, promptExpanded = false, promptResizeObserver = null, promptEditorHeight = 0;
+    function rememberDraft() {
+      if (!dirty || !preparation || !state || snapshotRevision == null) return;
+      drafts.set(target, { preparation: clone(preparation), state: clone(state), touched: [...touched], parameterTouched: [...parameterTouched], revision: snapshotRevision, proposal: selectedProposal });
+    }
+    function retainDraft(id, value) {
+      if (!value) return;
+      retainedDrafts.set(id + '|' + value.revision, value);
+      while (retainedDrafts.size > 64) retainedDrafts.delete(retainedDrafts.keys().next().value);
+      drafts.delete(id);
+    }
+    const status = (text, error = false) => { $('gbStatus').textContent = text || ''; $('gbStatus').classList.toggle('error', error); };
+    async function invoke(tool, args = {}) {
+      let result = bridge.payload(await bridge.tool('argo_workshop', { tool, arguments: args }));
+      const operation = result.operationRef;
+      const deadline = Date.now() + 1800000;
+      let statusChecked = false;
+      while (operation && !terminal.has(result.status)) {
+        if (Date.now() >= deadline) throw Error('操作确认已到期，请核对原操作。');
+        if (statusChecked) {
+          await new Promise(resolve => setTimeout(resolve, 350));
+          if (Date.now() >= deadline) throw Error('操作确认已到期，请核对原操作。');
+        }
+        result = bridge.payload(await bridge.tool('argo_operation_status', { operationRef: operation }));
+        statusChecked = true;
+      }
+      if (operation && !['completed', 'saved', 'applied'].includes(result.status)) throw Error(result.summary || '操作未完成。');
+      return { data: operation ? result.result || {} : result, projectRef: result.projectRef, operation: operation ? result : null };
+    }
+    const read = async (tool, args) => (await invoke(tool, args)).data;
+    async function readProposalSnapshot() {
+      const response = await invoke('generation.proposalRead', { offset: 0, limit: 50 });
+      const values = [...(response.data.proposals || [])], offsets = new Set();
+      let offset = response.data.nextOffset;
+      while (Number.isSafeInteger(offset)) {
+        if (offsets.has(offset)) throw Error('提案分页已变化，请刷新。'); offsets.add(offset);
+        const page = await read('generation.proposalRead', { offset, limit: 50 });
+        values.push(...(page.proposals || [])); offset = page.nextOffset;
+      }
+      return { ...response, data: { ...response.data, proposals: values } };
+    }
+    function rememberProposals(response) {
+      const projectChanged = discoveryProject !== response.projectRef;
+      if (projectChanged) { seenProposals.clear(); discoveryReady = false; }
+      discoveryProject = response.projectRef;
+      for (const value of response.data.proposals || []) seenProposals.set(value.proposalID, value.proposalRevision);
+      while (seenProposals.size > 256) seenProposals.delete(seenProposals.keys().next().value);
+      discoveryReady = true;
+    }
+    async function observeProposals() {
+      if (active || busy || loading || discoveryInFlight) return;
+      discoveryInFlight = true;
+      const ticket = epoch;
+      try {
+        const response = await readProposalSnapshot();
+        if (ticket !== epoch || active) return;
+        const sameProject = discoveryProject === response.projectRef;
+        const next = discoveryReady && sameProject ? response.data.proposals.find(value =>
+          value.state === 'proposed' && !proposalExpired(value) && seenProposals.get(value.proposalID) !== value.proposalRevision) : null;
+        rememberProposals(response);
+        if (!next) return;
+        preferredProposalID = next.proposalID; prefetchedProposals = response;
+        bridge.show?.();
+      } catch {
+        // Discovery is an optional read beside the existing asset refresh.
+        // Failure must not retire valid asset cards, selection, or playback.
+      } finally { discoveryInFlight = false; }
+    }
+    function revisionOf(value) {
+      if (!Number.isSafeInteger(value?.workspaceRevision) || value.workspaceRevision < 0) throw Error('宿主未提供有效工作区版本，未采用这次读取。');
+      return value.workspaceRevision;
+    }
+    function changedSnapshot() { const error = Error('工坊在读取期间发生变化，请稍后刷新。'); error.snapshotChanged = true; return error; }
+    function requireRevision(value, revision) { if (revisionOf(value) !== revision) throw changedSnapshot(); }
+    async function readOptions(tool, args) {
+      const result = await read(tool, { ...args, offset: 0, limit: 50 });
+      const revision = revisionOf(result);
+      if (!result.options) throw Error('宿主未返回型号选项。');
+      let offset = result.options?.nextOffset;
+      const seen = new Set();
+      while (Number.isSafeInteger(offset)) {
+        if (seen.has(offset) || seen.size >= maximumSnapshotPages) throw Error('型号分页未能有界完成，请刷新。'); seen.add(offset);
+        const page = await read(tool, { ...args, offset, limit: 50 });
+        requireRevision(page, revision); if (!page.options) throw Error('宿主未返回型号选项。');
+        result.options.models.push(...(page.options.models || [])); offset = page.options.nextOffset;
+      }
+      return result;
+    }
+    async function readReferences(id) {
+      const result = await read('generation.workspace', { shotID: id, part: 'references', offset: 0, limit: 50 }), revision = revisionOf(result), seen = new Set();
+      if (!result.references) throw Error('宿主未返回参考信息。');
+      let offset = result.references.nextOffset;
+      while (Number.isSafeInteger(offset)) {
+        if (seen.has(offset) || seen.size >= maximumSnapshotPages) throw Error('参考分页未能有界完成，请刷新。'); seen.add(offset);
+        const page = await read('generation.workspace', { shotID: id, part: 'references', offset, limit: 50 }); requireRevision(page, revision);
+        if (!page.references) throw Error('宿主未返回参考信息。');
+        result.references.items.push(...(page.references.items || [])); offset = page.references.nextOffset;
+      }
+      return result;
+    }
+    function hasLocalEdits(id) {
+      const revision = preparation?.shotID === id ? snapshotRevision : targets.find(value => value.shotID === id)?.workspaceRevision;
+      return preparation?.shotID === id && dirty || drafts.get(id)?.revision === revision && !!drafts.get(id)?.touched.length;
+    }
+    function nativePreparation(id, inspection, references, options, prompt) {
+      const value = { shotID: id, expectedRevision: revisionOf(inspection), ...clone(inspection.draftSettings || {}),
+        prompt: prompt?.customPrompt || '', directorPrompt: prompt?.directorPrompt || '', promptSource: prompt?.source || 'custom',
+        referenceIDs: (references.references.items || []).filter(value => value.selected).map(value => value.id) };
+      value.candidateLanes = value.selectedCandidateLanes || value.candidateLanes || []; delete value.selectedCandidateLanes; delete value.candidateCount;
+      if (options.options.savedModelParameters && typeof options.options.savedModelParameters === 'object') value.modelParameters = clone(options.options.savedModelParameters);
+      return value;
+    }
+    function normalizePreparation(value) {
+      if (!value.modelID) { delete value.modelID; value.clearModel = true; }
+      if (value.referenceMode === 'omni') { delete value.startReferenceID; delete value.endReferenceID; delete value.ordinaryReferenceIDs; }
+      else { for (const key of ['startReferenceID', 'endReferenceID']) if (!value[key]) delete value[key]; if (value.referenceMode === 'frames') delete value.ordinaryReferenceIDs; }
+      return value;
+    }
+    async function readSnapshot(id, proposal = null, cached = null) {
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          const parts = await Promise.allSettled([read('generation.workspace', { shotID: id, part: 'summary' }), read('generation.inspect', { shotID: id }), readReferences(id), readOptions('generation.workspace', { shotID: id, part: 'options' }), read('generation.workspace', { shotID: id, part: 'prompt' }), read('generation.businessStatus', { shotID: id })]);
+          for (const part of parts) if (part.status === 'rejected') throw part.reason;
+          const [start, inspection, references, options, promptPart, businessStatus] = parts.map(part => part.value);
+          const revision = revisionOf(start);
+          for (const part of [inspection, references, options, promptPart, businessStatus]) requireRevision(part, revision);
+          const currentProposal = proposal && proposal.state === 'proposed' && !proposalExpired(proposal) && !staleProposals.has(proposal.proposalID) && proposal.preparation?.shotID === id && proposal.preparation?.expectedRevision === revision && proposal.workspaceRevision === revision ? proposal : null;
+          const currentCache = cached?.revision === revision && cached.preparation.shotID === id ? cached : null;
+          let value = nativePreparation(id, inspection, references, options, promptPart.prompt);
+          if (currentProposal) value = { ...value, ...clone(currentProposal.settings), ...clone(currentProposal.preparation),
+            prompt: currentProposal.prompt.customPrompt,
+            directorPrompt: currentProposal.prompt.directorPrompt,
+            promptSource: currentProposal.prompt.source,
+            referenceIDs: (currentProposal.references || []).map(value => value.id) };
+          if (currentCache) value = clone(currentCache.preparation);
+          value.expectedRevision = revision; normalizePreparation(value);
+          let projectedOptions = options;
+          if (currentProposal || currentCache) {
+            projectedOptions = await readOptions('generation.previewOptions', { preparation: patchFor(value, currentProposal, new Set(currentCache?.touched || []), new Set(currentCache?.parameterTouched || []), options.options) });
+            requireRevision(projectedOptions, revision);
+            if (projectedOptions.options.savedModelParameters) value.modelParameters = clone(projectedOptions.options.savedModelParameters);
+          }
+          const end = await read('generation.workspace', { shotID: id, part: 'summary' }); requireRevision(end, revision);
+          return { preparation: value, state: { summary: end.summary, references: references.references, options: projectedOptions.options, businessStatus }, inspection, revision, proposal: currentProposal, cache: currentCache };
+        } catch (error) { if (!error.snapshotChanged || attempt === 1) throw error; }
+      }
+    }
+    function proposalExpired(value) { const time = Date.parse(value?.expiresAt); return !Number.isFinite(time) || time <= Date.now(); }
+    function workspaceSaved(summary) { return summary?.saveState === 'saved' && summary.canSave === false; }
+    function needsOverwrite() { return invalidatedSavedRevisions.get(target) === snapshotRevision; }
+    function observeSaveState(summary, revision) {
+      if (workspaceSaved(summary)) return;
+      savedBaselines.delete(target); invalidatedSavedRevisions.set(target, revision); invalidateQuote();
+    }
+    function unconfirmedSave(summary) { return summary?.saveReason ? '工坊保存尚未确认：' + summary.saveReason : '工坊参数尚未确认保存，请核对后再次覆盖。'; }
+    function providerTitle() {
+      const id = preparation?.providerID || state?.options?.providerID;
+      return id && state?.businessStatus?.platformID === id && state.businessStatus.platformName || id || '未配置';
+    }
+    function savedBaseline() { const value = savedBaselines.get(target); return workspaceSaved(state?.summary) && !needsOverwrite() && value?.workspaceRevision === snapshotRevision && value.savedReceiptID ? value : null; }
+    function quoteValid() { return quote && quote.target === target && quote.workspaceRevision === snapshotRevision && !dirty && quote.expiresAt > Date.now() && savedBaseline(); }
+    function formReady() { return preparation && state?.summary?.writable && !$('gbForm').querySelector('input:invalid,textarea:invalid'); }
+    function canApply() { return formReady() && (pendingSaves.has(target) || (dirty || needsOverwrite() || state.summary.canSave === true || selectedProposal?.state === 'proposed') && (!selectedProposal || selectedProposal.state === 'proposed' && !proposalExpired(selectedProposal))); }
+    function canGenerate() { return formReady() && !needsOverwrite() && !!preparation.candidateLanes?.length && (canApply() || !!savedBaseline() && !dirty); }
+    function buttons() {
+      $('gbForm').querySelectorAll('button:not(.panel-select-trigger),input,select,textarea').forEach(element => { element.disabled = busy || loading || element.dataset.unavailable === 'true'; });
+      $('gbApply').disabled = busy || loading || !canApply();
+      $('gbGenerate').disabled = busy || loading || !canGenerate();
+      $('gbTarget').disabled = busy;
+      enhanceSelects(root);
+      $('gbQuote').textContent = quoteValid() ? `${quote.amount} ${quote.unit}` : quote ? '报价已失效' : '';
+    }
+    function invalidateQuote() { quote = null; clearTimeout(quoteTimer); }
+    function changed() {
+      dirty = true; invalidateQuote();
+      status(''); buttons();
+    }
+    function field(title, node, reason = '') {
+      const row = document.createElement('label'); row.className = 'gb-field';
+      const label = document.createElement('span'); label.className = 'gb-label'; label.textContent = title;
+      const control = document.createElement('span'); control.className = 'gb-control'; control.append(node);
+      if (reason) { const hint = document.createElement('small'); hint.textContent = reason; control.append(hint); }
+      if (node.dataset.field) row.dataset.field = node.dataset.field;
+      row.append(label, control); ($('gbParameters') || $('gbForm')).append(row); return row;
+    }
+    function select(title, key, values, current, enabled = true, reason = '', onChange) {
+      const node = document.createElement('select'); node.dataset.field = key; node.setAttribute('aria-label', title);
+      const rows = values.map(value => typeof value === 'object' ? value : { value: String(value), title: String(value) });
+      if (current !== undefined && current !== null && !rows.some(value => String(value.value) === String(current))) rows.unshift({ value: String(current), title: String(current) || '空值', disabled: true });
+      for (const value of rows) { const option = new Option(value.title, value.value); option.disabled = !!value.disabled; node.append(option); }
+      if (current == null) node.selectedIndex = -1; else node.value = String(current);
+      node.dataset.unavailable = String(!enabled || !rows.length); node.disabled = node.dataset.unavailable === 'true';
+      node.onchange = () => { onChange ? onChange(node.value) : preparation[key] = node.value; touched.add(key.startsWith('parameter:') ? 'modelParameters' : key); if (key.startsWith('parameter:')) { parameterTouched.add(key.slice('parameter:'.length)); touched.add('clearModelParameters'); } changed(); };
+      const wrapper = document.createElement('span'); wrapper.className = 'gb-select'; wrapper.dataset.field = key; wrapper.append(node);
+      field(title, wrapper, reason); return node;
+    }
+    function scheduleOptions() {
+      clearTimeout(optionTimer); const ticket = epoch;
+      optionTimer = setTimeout(async () => {
+        try { const result = await readOptions('generation.previewOptions', { preparation: preparationPatch() }); requireRevision(result, snapshotRevision);
+          const end = await read('generation.workspace', { shotID: target, part: 'summary' }); requireRevision(end, snapshotRevision);
+          if (ticket !== epoch) return; state.options = result.options; state.summary = end.summary; observeSaveState(end.summary, snapshotRevision);
+          if (result.options.savedModelParameters) preparation.modelParameters = clone(result.options.savedModelParameters);
+          render();
+        } catch (error) { if (ticket === epoch) { if (error.snapshotChanged) await loadTarget(target, null, true); else status(error.message, true); } }
+      }, 150);
+    }
+    function render() {
+      promptResizeObserver?.disconnect(); promptResizeObserver = null;
+      if (openMenu && root.contains(openMenu.trigger)) closeMenu();
+      const form = $('gbForm'); form.replaceChildren();
+      if (!preparation || !state) { const empty = document.createElement('div'); empty.className = 'gb-empty'; empty.textContent = targets.length ? '正在读取参数…' : '当前没有可用生成范围'; form.append(empty); buttons(); return; }
+      const options = state.options || {}, controls = options.controls || {};
+      const parameters = document.createElement('section'); parameters.id = 'gbParameters'; parameters.className = 'gb-parameters';
+      const heading = document.createElement('h2'); heading.textContent = '生成参数'; parameters.append(heading); form.append(parameters);
+      const provider = document.createElement('span'); provider.id = 'gbProvider'; provider.textContent = providerTitle(); field('Provider', provider);
+      const modes = { omni: '全能参考', frames: '首尾帧', mixed: '混合参考' };
+      select('参考方式', 'referenceMode', (options.referenceModes || []).map(value => ({ value, title: modes[value] || value })), preparation.referenceMode, controls.referenceMode?.enabled, controls.referenceMode?.reason, value => {
+        preparation.referenceMode = value; if (value === 'omni') { delete preparation.startReferenceID; delete preparation.endReferenceID; delete preparation.ordinaryReferenceIDs; } else if (value === 'frames') delete preparation.ordinaryReferenceIDs; else preparation.ordinaryReferenceIDs ||= [];
+        for (const key of ['startReferenceID', 'endReferenceID', 'ordinaryReferenceIDs']) touched.add(key);
+        render(); scheduleOptions();
+      });
+      select('Model', 'modelID', [{ value: '', title: '选择 Model' }, ...(options.models || []).map(value => ({ value: value.id, title: value.title, disabled: !value.selectable }))], preparation.modelID || '', controls.model?.enabled, controls.model?.reason, value => { if (value) { preparation.modelID = value; delete preparation.clearModel; } else { delete preparation.modelID; preparation.clearModel = true; } parameterTouched.clear(); touched.delete('modelParameters'); touched.delete('clearModelParameters'); delete preparation.clearModelParameters; preparation.modelParameters = {}; scheduleOptions(); });
+      for (const parameter of options.parameters || []) {
+        select(parameter.title, 'parameter:' + parameter.id, (parameter.values || []).map(value => ({ value, title: value === 'true' ? '开启' : value === 'false' ? '关闭' : value === '' ? '空值' : value })), preparation.modelParameters?.[parameter.id] ?? parameter.selectedValue ?? parameter.defaultValue, parameter.enabled, parameter.reason, value => {
+          preparation.modelParameters ||= {};
+          preparation.modelParameters[parameter.id] = value; preparation.clearModelParameters = (preparation.clearModelParameters || []).filter(key => key !== parameter.id);
+          scheduleOptions();
+        });
+      }
+      select('画面比例', 'aspectRatio', options.aspectRatios || [], preparation.aspectRatio, !!controls.aspectRatio?.enabled, controls.aspectRatio?.reason);
+      select('分辨率', 'resolution', options.resolutions || [], preparation.resolution, !!controls.resolution?.enabled, controls.resolution?.reason);
+      {
+      const duration = document.createElement('input'); duration.type = 'number'; duration.step = '1'; duration.required = true; duration.inputMode = 'numeric'; duration.dataset.field = 'durationSeconds'; duration.setAttribute('aria-label', '时长（秒）'); duration.value = preparation.durationSeconds ?? '';
+      const durations = [...new Set((options.durationSeconds || []).filter(Number.isSafeInteger))].sort((a, b) => a - b); if (durations.length) { duration.min = Math.min(...durations); duration.max = Math.max(...durations); }
+      let durationDragging = false;
+      const slider = document.createElement('input'); slider.type = 'range'; slider.min = '0'; slider.max = String(Math.max(0, durations.length - 1)); slider.step = 'any'; slider.value = String(Math.max(0, durations.indexOf(preparation.durationSeconds))); slider.setAttribute('aria-label', '时长滑条'); slider.setAttribute('aria-valuetext', String(preparation.durationSeconds ?? '') + ' 秒');
+      duration.dataset.unavailable = slider.dataset.unavailable = String(!controls.duration?.enabled || !durations.length);
+      function setDuration(value, report = false, syncSlider = true) {
+        if (!Number.isSafeInteger(value) || !durations.includes(value)) { duration.setCustomValidity('请选择当前型号支持的整数秒。'); if (report) duration.reportValidity(); buttons(); return; }
+        const updated = preparation.durationSeconds !== value;
+        duration.setCustomValidity(''); duration.value = String(value); if (syncSlider) slider.value = String(durations.indexOf(value)); slider.setAttribute('aria-valuetext', value + ' 秒');
+        if (!updated) { buttons(); return; }
+        preparation.durationSeconds = value; touched.add('durationSeconds'); changed();
+      }
+      duration.oninput = () => { duration.setCustomValidity(''); buttons(); }; duration.onchange = () => setDuration(Number(duration.value), true);
+      slider.onpointerdown = () => { durationDragging = true; };
+      slider.onpointerup = slider.onpointercancel = slider.onblur = () => { durationDragging = false; slider.value = String(Math.max(0, durations.indexOf(preparation.durationSeconds))); };
+      slider.oninput = () => { const index = Math.max(0, Math.min(durations.length - 1, Math.round(Number(slider.value)))), value = durations[index]; if (value !== preparation.durationSeconds || duration.value !== String(value) || !duration.validity.valid) setDuration(value, false, !durationDragging); else if (!durationDragging) slider.value = String(index); };
+      const durationControl = document.createElement('span'); durationControl.className = 'gb-duration'; const durationNumber = document.createElement('span'); durationNumber.className = 'gb-duration-number'; const durationUnit = document.createElement('span'); durationUnit.className = 'gb-duration-unit'; durationUnit.textContent = 's'; durationNumber.append(duration, durationUnit); durationControl.append(slider, durationNumber);
+      field('时长', durationControl, controls.duration?.reason);
+      }
+      const lanes = document.createElement('div'); lanes.className = 'gb-lanes'; lanes.setAttribute('role', 'group'); lanes.setAttribute('aria-label', '生成候选');
+      for (const value of options.candidateLanes || []) { const button = document.createElement('button'); button.type = 'button'; button.textContent = value; button.setAttribute('aria-pressed', String((preparation.candidateLanes || []).includes(value))); button.dataset.unavailable = String(!controls.candidateLanes?.enabled); button.onclick = () => { const selected = new Set(preparation.candidateLanes || []); selected.has(value) ? selected.delete(value) : selected.add(value); preparation.candidateLanes = (options.candidateLanes || []).filter(lane => selected.has(lane)); delete preparation.candidateCount; touched.add('candidateLanes'); changed(); render(); }; lanes.append(button); }
+      field('候选', lanes, controls.candidateLanes?.reason);
+      const refs = state.references?.items || [], roleChoices = [{ value: '', title: '无' }, ...refs.filter(value => (preparation.referenceIDs || []).includes(value.id)).map(value => ({ value: value.id, title: value.name }))];
+      if (preparation.referenceMode !== 'omni') {
+        for (const [key, title, support] of [['startReferenceID', '首帧', 'supportsStart'], ['endReferenceID', '尾帧', 'supportsEnd']]) select(title, key, roleChoices, preparation[key] || '', !!state.references?.[support], '', value => { if (value) preparation[key] = value; else delete preparation[key]; if (preparation.referenceMode === 'mixed') { preparation.ordinaryReferenceIDs = (preparation.ordinaryReferenceIDs || []).filter(id => id !== preparation.startReferenceID && id !== preparation.endReferenceID); touched.add('ordinaryReferenceIDs'); } });
+      }
+      const prompt = document.createElement('details'); prompt.className = 'gb-prompt'; prompt.open = promptExpanded; prompt.ontoggle = () => { promptExpanded = prompt.open; }; const summary = document.createElement('summary'); summary.textContent = '提示词'; prompt.append(summary); const head = document.createElement('div'); head.className = 'gb-prompt-head';
+      const source = document.createElement('div'); source.className = 'gb-prompt-source'; source.setAttribute('role', 'group'); source.setAttribute('aria-label', '提示词来源');
+      for (const [value, title] of [['director', '导演稿'], ['custom', '自定义']]) {
+        const button = document.createElement('button'); button.type = 'button'; button.dataset.promptSource = value; button.textContent = title; button.setAttribute('aria-pressed', String((preparation.promptSource || 'custom') === value));
+        button.onclick = () => { if (preparation.promptSource === value) return; preparation.promptSource = value; touched.add('promptSource'); changed(); render(); }; source.append(button);
+      }
+      head.append(source); const editor = document.createElement('textarea'); editor.setAttribute('aria-label', '生成提示词'); const promptKey = preparation.promptSource === 'director' ? 'directorPrompt' : 'prompt'; editor.value = preparation[promptKey] || ''; if (promptEditorHeight) editor.style.height = promptEditorHeight + 'px'; editor.oninput = () => { preparation[promptKey] = editor.value; touched.add(promptKey); changed(); }; prompt.append(head, editor); form.append(prompt); buttons();
+      if (typeof ResizeObserver !== 'undefined') {
+        let previousHeight = editor.getBoundingClientRect().height;
+        promptResizeObserver = new ResizeObserver(() => { const rect = editor.getBoundingClientRect(), grew = rect.height > previousHeight + .5; previousHeight = rect.height; if (!rect.height) return; promptEditorHeight = rect.height; if (grew && document.activeElement === editor) { const scroll = root.querySelector('.gb-content'), bounds = scroll.getBoundingClientRect(); if (rect.bottom > bounds.bottom - 12) scroll.scrollTop += rect.bottom - bounds.bottom + 12; } });
+        promptResizeObserver.observe(editor);
+      }
+    }
+    function adoptSnapshot(snapshot) {
+      preparation = snapshot.preparation; state = snapshot.state; snapshotRevision = snapshot.revision;
+      selectedProposal = snapshot.proposal;
+      touched = new Set(snapshot.cache?.touched || []); parameterTouched = new Set(snapshot.cache?.parameterTouched || []); dirty = !!snapshot.cache;
+      const targetValue = targets.find(value => value.shotID === target); if (targetValue) targetValue.workspaceRevision = snapshotRevision;
+      if (savedBaselines.get(target)?.workspaceRevision !== snapshotRevision) savedBaselines.delete(target);
+      observeSaveState(state.summary, snapshotRevision);
+    }
+    async function loadTarget(id, proposal = null, reloadNative = false) {
+      rememberDraft(); clearTimeout(optionTimer);
+      const previous = { preparation, state, touched, parameterTouched, revision: snapshotRevision, proposal: selectedProposal, dirty };
+      const cached = drafts.get(id), ticket = ++epoch;
+      loading = true; target = id; state = null; preparation = null; selectedProposal = null; dirty = false; touched = new Set(); parameterTouched = new Set(); invalidateQuote(); render(); status('正在读取参数…');
+      try {
+        const snapshot = await readSnapshot(id, proposal || cached?.proposal, reloadNative ? null : cached);
+        if (ticket !== epoch) return false;
+        const changed = cached && cached.revision !== snapshot.revision;
+        if (changed || reloadNative) retainDraft(id, cached);
+        adoptSnapshot(snapshot);
+        const saved = proposals.find(value => value.state === 'applied' && value.preparation?.shotID === id && value.workspaceRevision === snapshotRevision && value.savedReceiptID);
+        if (saved && workspaceSaved(state.summary) && !needsOverwrite()) savedBaselines.set(id, { workspaceRevision: saved.workspaceRevision, savedReceiptID: saved.savedReceiptID });
+        status(changed || reloadNative ? '工坊参数已更新，请核对后再覆盖。' : workspaceSaved(state.summary) ? '' : unconfirmedSave(state.summary));
+        return true;
+      } catch (error) {
+        if (ticket === epoch) {
+          if (previous.preparation?.shotID === id) {
+            preparation = previous.preparation; state = previous.state; touched = previous.touched; parameterTouched = previous.parameterTouched; snapshotRevision = previous.revision; dirty = previous.dirty; selectedProposal = previous.proposal;
+          }
+          status(error.message, true);
+        }
+        return false;
+      } finally { if (ticket === epoch) { loading = false; render(); if (refreshRequested && active && !refreshFlight) queueMicrotask(() => refresh()); } }
+    }
+    function refresh(force = false) {
+      if (!active) return Promise.resolve();
+      refreshRequested = true; forceRefreshRequested ||= force;
+      if (refreshFlight) return refreshFlight;
+      if (busy || loading) return Promise.resolve();
+      // Serialize reads and coalesce intervening requests into a trailing pass.
+      // Writes are never cached or replayed; epoch guards every adoption.
+      refreshFlight = (async () => {
+        do {
+          const requestedForce = forceRefreshRequested; refreshRequested = false; forceRefreshRequested = false;
+          await refreshOnce(requestedForce);
+        } while (active && refreshRequested && !busy && !loading);
+      })().finally(() => { refreshFlight = null; scheduleRefresh(); });
+      return refreshFlight;
+    }
+    async function refreshOnce(force = false) {
+      if (!active || busy || loading) return;
+      const refreshEpoch = epoch;
+      if (openMenu && root.contains(openMenu.trigger)) closeMenu();
+      try {
+        const connected = await bridge.ensureConnection();
+        if (refreshEpoch !== epoch || !active) return;
+        if (!connected) { invalidate(); return; }
+        const response = prefetchedProposals || await readProposalSnapshot(); prefetchedProposals = null;
+        if (refreshEpoch !== epoch || !active) return;
+        rememberProposals(response);
+        const values = response.data.proposals || [];
+        if (project && response.projectRef && project !== response.projectRef) invalidate();
+        project = response.projectRef || project; proposals = values; targets = response.data.targets || [];
+        const current = target; const targetNode = $('gbTarget');
+        const displayedTargets = [...targets.filter(value => value.isGlobal === true), ...targets.filter(value => value.isGlobal !== true)];
+        if (targetNode.options.length !== displayedTargets.length || displayedTargets.some((value, index) => targetNode.options[index]?.value !== value.shotID || targetNode.options[index]?.textContent !== value.canonicalReference)) {
+          targetNode.replaceChildren(...displayedTargets.map(value => new Option(value.canonicalReference, value.shotID)));
+        }
+        const valid = value => value.state === 'proposed' && !staleProposals.has(value.proposalID) && !proposalExpired(value) && targets.find(target => target.shotID === value.preparation?.shotID)?.workspaceRevision === value.preparation?.expectedRevision;
+        const preferred = proposals.find(value => value.proposalID === preferredProposalID && valid(value));
+        const latest = preferred || proposals.find(valid);
+        const nextTarget = preferred?.preparation?.shotID || (targets.some(value => value.shotID === current) ? current : latest?.preparation?.shotID || targets[0]?.shotID || '');
+        // A notification can arrive while an older proposal read is in flight.
+        // Only consume an intent that this response actually matched.
+        if (preferred) preferredProposalID = null;
+        targetNode.value = nextTarget;
+        const nativeRevision = nextTarget ? revisionOf(targets.find(value => value.shotID === nextTarget)) : null;
+        let changed = !!state && target === nextTarget && nativeRevision !== snapshotRevision, saveChanged = false;
+        if (state && target === nextTarget && !changed && !(force && !hasLocalEdits(nextTarget))) {
+          const ticket = epoch;
+          const [currentSummary, businessStatus] = await Promise.all([read('generation.workspace', { shotID: nextTarget, part: 'summary' }), read('generation.businessStatus', { shotID: nextTarget })]);
+          if (ticket !== epoch || target !== nextTarget || busy) return;
+          requireRevision(currentSummary, snapshotRevision); requireRevision(businessStatus, snapshotRevision);
+          saveChanged = currentSummary.summary?.saveState !== state.summary?.saveState || currentSummary.summary?.canSave !== state.summary?.canSave || currentSummary.summary?.writable !== state.summary?.writable;
+          changed = businessStatus.platformID !== state.businessStatus?.platformID;
+          state.summary = currentSummary.summary; state.businessStatus = businessStatus; observeSaveState(state.summary, snapshotRevision);
+          if ($('gbProvider')) $('gbProvider').textContent = providerTitle();
+          if (saveChanged && !workspaceSaved(state.summary)) status(unconfirmedSave(state.summary), true);
+        }
+        if (changed) {
+          if (selectedProposal) staleProposals.add(selectedProposal.proposalID);
+          invalidateQuote();
+          selectedProposal = null;
+        }
+        const incoming = latest?.preparation?.shotID === nextTarget && (preferred || !hasLocalEdits(nextTarget)) && latest.proposalID !== selectedProposal?.proposalID ? latest : null;
+        if (nextTarget && (nextTarget !== target || !state || incoming || changed || (force || saveChanged) && !hasLocalEdits(nextTarget))) await loadTarget(nextTarget, incoming || (nextTarget === target && !changed ? selectedProposal : null), changed);
+        else if (!nextTarget) { target = ''; render(); }
+        buttons();
+      } catch (error) { if (refreshEpoch === epoch) { status(error.message, true); buttons(); } }
+    }
+    function scheduleRefresh() { clearTimeout(refreshTimer); if (active && Date.now() < activeUntil && document.visibilityState === 'visible') refreshTimer = setTimeout(refresh, Math.min(5000, activeUntil - Date.now())); }
+    $('gbTarget').onchange = () => {
+      const id = $('gbTarget').value;
+      if (id === target && (state || loading) && !refreshRequested) return;
+      return loadTarget(id, proposals.find(value => value.preparation?.shotID === id && value.state === 'proposed') || null);
+    };
+    function patchFor(value, proposal, changedKeys, changedParameters, options) {
+      const patch = proposal ? clone(proposal.preparation) : { shotID: value.shotID, expectedRevision: value.expectedRevision };
+      for (const key of changedKeys) {
+        if (['modelParameters', 'clearModelParameters'].includes(key)) continue;
+        delete patch[key]; if (value[key] !== undefined) patch[key] = clone(value[key]);
+      }
+      if (changedKeys.has('candidateLanes')) delete patch.candidateCount;
+      if (changedKeys.has('modelID')) {
+        if (value.modelID) delete patch.clearModel; else { delete patch.modelID; patch.clearModel = true; }
+        if (value.modelID !== proposal?.preparation?.modelID) { delete patch.modelParameters; delete patch.clearModelParameters; }
+      }
+      if (changedParameters.size) {
+        const parameters = { ...(patch.modelParameters || {}) }, cleared = new Set(patch.clearModelParameters || []);
+        for (const key of changedParameters) {
+          delete parameters[key]; cleared.delete(key);
+          if (Object.prototype.hasOwnProperty.call(value.modelParameters || {}, key) && !(value.clearModelParameters || []).includes(key)) parameters[key] = value.modelParameters[key];
+          else cleared.add(key);
+        }
+        if (Object.keys(parameters).length) patch.modelParameters = parameters; else delete patch.modelParameters;
+        if (cleared.size) patch.clearModelParameters = [...cleared]; else delete patch.clearModelParameters;
+      }
+      for (const [key, control] of [['aspectRatio', 'aspectRatio'], ['resolution', 'resolution'], ['durationSeconds', 'duration']]) if (!options?.controls?.[control]?.enabled) delete patch[key];
+      if (patch.referenceMode === 'omni') { delete patch.startReferenceID; delete patch.endReferenceID; delete patch.ordinaryReferenceIDs; }
+      if (patch.referenceMode === 'frames') delete patch.ordinaryReferenceIDs;
+      if (['startReferenceID', 'endReferenceID', 'ordinaryReferenceIDs'].some(key => changedKeys.has(key)) && !patch.referenceMode) patch.referenceMode = value.referenceMode;
+      return patch;
+    }
+    function preparationPatch() { return patchFor(preparation, selectedProposal, touched, parameterTouched, state?.options); }
+    async function readSavedParameters(expectedRevision) {
+      const snapshot = await readSnapshot(target);
+      if (expectedRevision != null && snapshot.revision !== expectedRevision) {
+        if (selectedProposal) staleProposals.add(selectedProposal.proposalID);
+        rememberDraft(); retainDraft(target, drafts.get(target)); invalidateQuote(); adoptSnapshot(snapshot);
+        throw Error('工坊参数已更新，请核对后再覆盖。');
+      }
+      adoptSnapshot(snapshot);
+      if (!workspaceSaved(state.summary)) throw Error(unconfirmedSave(state.summary));
+      if (savedBaselines.get(target)?.workspaceRevision === snapshotRevision) invalidatedSavedRevisions.delete(target);
+      return snapshot.inspection;
+    }
+    async function ensureParametersSaved(explicitOverwrite) {
+      if (pendingSaves.has(target)) return await reconcileSavedParameters();
+      if (needsOverwrite() && !explicitOverwrite) throw Error(unconfirmedSave(state?.summary));
+      if (savedBaseline() && !dirty && !selectedProposal) {
+        return await readSavedParameters(savedBaseline().workspaceRevision);
+      }
+      if (!canApply()) throw Error('当前参数不可覆盖，请核对输入。');
+      const current = await read('generation.workspace', { shotID: target, part: 'summary' });
+      if (revisionOf(current) !== snapshotRevision) {
+        await loadTarget(target, null, true);
+        throw Error('工坊参数已更新，请核对后再覆盖。');
+      }
+      state.summary = current.summary; observeSaveState(state.summary, snapshotRevision);
+      if (!state.summary?.writable || needsOverwrite() && !explicitOverwrite) throw Error(unconfirmedSave(state.summary));
+      const patch = preparationPatch();
+      const proposal = selectedProposal;
+      status('等待确认覆盖参数…');
+      const response = await invoke('generation.apply', proposal ? { proposalID: proposal.proposalID, expectedProposalRevision: proposal.proposalRevision, preparation: patch } : { preparation: patch });
+      const applied = response.data;
+      if (['saved', 'applied'].includes(response.operation?.status)) pendingSaves.set(target, { operation: response.operation, baseRevision: snapshotRevision });
+      const saved = applied.applied;
+      if (!saved && pendingSaves.has(target)) return await reconcileSavedParameters();
+      if (!saved || saved.shotID !== target || !saved.savedReceiptID) throw Error('参数保存尚未确认，请核对原操作。');
+      const revision = revisionOf(saved);
+      if (saved.preparation && saved.preparation.expectedRevision !== revision) throw Error('参数保存版本未能核对。');
+      if (saved.workspace) for (const part of ['summary', 'options', 'references', 'prompt']) requireRevision(saved.workspace[part], revision);
+      // Record the save before any later read/quote can fail. An explicit retry
+      // must continue from this receipt, never repeat the writer operation.
+      savedBaselines.set(target, { workspaceRevision: revision, savedReceiptID: saved.savedReceiptID });
+      pendingSaves.delete(target);
+      if (saved.preparation && saved.workspace) {
+        preparation = clone(saved.preparation);
+        state = { summary: saved.workspace.summary.summary, options: saved.workspace.options.options, references: saved.workspace.references.references, businessStatus: state.businessStatus };
+      }
+      preparation.expectedRevision = revision;
+      snapshotRevision = revision;
+      proposals = applied.proposals || proposals; selectedProposal = null;
+      const targetValue = targets.find(value => value.shotID === target); if (targetValue) targetValue.workspaceRevision = revision;
+      dirty = false; touched.clear(); parameterTouched.clear(); drafts.delete(target);
+      invalidateQuote();
+      return await readSavedParameters(revision);
+    }
+    async function reconcileSavedParameters() {
+      // A saved receipt can omit the inline projection when it is too large.
+      // Until reads establish its current state, this action may only read.
+      const response = await readProposalSnapshot();
+      const snapshot = await readSnapshot(target);
+      proposals = response.data.proposals || proposals;
+      const matching = proposals.filter(value => value.state === 'applied' && value.preparation?.shotID === target && value.workspaceRevision === snapshot.revision && value.workspaceRevision > pendingSaves.get(target)?.baseRevision && value.savedReceiptID);
+      const saved = matching.length === 1 ? matching[0] : null;
+      adoptSnapshot(snapshot); dirty = false; touched.clear(); parameterTouched.clear(); drafts.delete(target); invalidateQuote();
+      if (!workspaceSaved(state.summary)) { pendingSaves.delete(target); throw Error(unconfirmedSave(state.summary)); }
+      if (needsOverwrite()) { pendingSaves.delete(target); throw Error('当前保存回执已失效，请核对后再次覆盖。'); }
+      if (!saved) {
+        const previous = proposals.find(value => value.state === 'applied' && value.preparation?.shotID === target && value.workspaceRevision > pendingSaves.get(target)?.baseRevision && value.workspaceRevision < snapshot.revision && value.savedReceiptID);
+        if (previous) { pendingSaves.delete(target); throw Error('工坊参数已更新，请核对后再覆盖。'); }
+        throw Error('参数已保存，尚未取得当前保存回执；请刷新核对。');
+      }
+      savedBaselines.set(target, { workspaceRevision: snapshot.revision, savedReceiptID: saved.savedReceiptID });
+      pendingSaves.delete(target);
+      return snapshot.inspection;
+    }
+    async function ensureQuote(inspection) {
+      if (!inspection.readyForQuote) throw Error(inspection.reason || '参数已保存，当前尚不能报价。');
+      if (quoteValid()) return quote;
+      status('等待报价批准…');
+      const plan = await read('generation.quote', { shotID: target, expectedRevision: inspection.workspaceRevision });
+      // Existing quote dates use Foundation's 2001 reference epoch.
+      const expiresAt = typeof plan.expiresAt === 'number' ? (plan.expiresAt + 978307200) * 1000 : Date.parse(plan.expiresAt);
+      if (!plan.id || !Number.isFinite(expiresAt) || expiresAt <= Date.now()) throw Error('没有取得有效报价。');
+      quote = { id: plan.id, amount: plan.amount, unit: plan.unit, expiresAt, target, workspaceRevision: snapshotRevision };
+      quoteTimer = setTimeout(buttons, Math.max(1, expiresAt - Date.now()));
+      return quote;
+    }
+    async function runAction(generate) {
+      if (busy || loading || !(generate ? canGenerate() : canApply())) return;
+      busy = true; clearTimeout(optionTimer); buttons();
+      try {
+        const inspection = await ensureParametersSaved(!generate);
+        if (!generate) { status('参数已覆盖并保存。'); return; }
+        const price = await ensureQuote(inspection);
+        if (!quoteValid()) throw Error('报价已失效；未提交生成。');
+        const planID = price.id; invalidateQuote();
+        status('等待本次生成批准…');
+        await read('generation.submit', { planID });
+        status('已按宿主回执提交候选。');
+      } catch (error) {
+        let changed = false;
+        if (preparation && !pendingSaves.has(target)) {
+          try {
+            const current = await read('generation.workspace', { shotID: target, part: 'summary' });
+            if (revisionOf(current) !== snapshotRevision) changed = await loadTarget(target, null, true);
+            else { state.summary = current.summary; observeSaveState(state.summary, snapshotRevision); }
+          } catch { /* Keep the original operation failure if the read is unavailable. */ }
+        }
+        status(changed ? '工坊参数已更新，请核对后再覆盖。' : error.message, true);
+      }
+      finally { busy = false; render(); if (refreshRequested && active) refresh(); else scheduleRefresh(); }
+    }
+    $('gbApply').onclick = () => runAction(false);
+    $('gbGenerate').onclick = () => runAction(true);
+    function invalidate() { ++epoch; loading = false; target = ''; project = ''; state = null; preparation = null; selectedProposal = null; proposals = []; targets = []; dirty = false; snapshotRevision = null; touched.clear(); parameterTouched.clear(); drafts.clear(); savedBaselines.clear(); pendingSaves.clear(); invalidatedSavedRevisions.clear(); retainedDrafts.clear(); staleProposals.clear(); discoveryProject = null; discoveryReady = false; prefetchedProposals = null; seenProposals.clear(); invalidateQuote(); clearTimeout(optionTimer); $('gbTarget').replaceChildren(); render(); }
+    return {
+      setActive(value) { active = value; clearTimeout(refreshTimer); if (openMenu && root.contains(openMenu.trigger)) closeMenu(); if (active) { activeUntil = Date.now() + 30000; refresh(); } }, refresh: () => refresh(true), invalidate, observeProposals,
+      activity() { activeUntil = Date.now() + 30000; scheduleRefresh(); },
+      receiveToolResult(result) { const envelope = bridge.payload(result), data = envelope.result || envelope; if (Array.isArray(data.proposals) && data.proposals.length) { const next = data.proposals.find(value => value.state === 'proposed'); preferredProposalID = next?.proposalID || null; bridge.show?.(); if (active) refresh(); } }
+    };
+  }
+  global.ArgoGenerationBoard = { mount };
+})(window);
+</script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id), selected=new Map(), previews=new Map(), pending=new Map();
+const fontReadWaiters=new Set();let panelClosed=false,fontReadsActive=0;
+function resumeFontReads(){for(const resume of [...fontReadWaiters])resume()}
+const panelIcon=window.ArgoPanelMenus.icon;
+$('workspace').querySelector('svg').replaceWith(panelIcon('chevron'));
+for(const check of document.querySelectorAll('#workspaceMenu .workspace-check'))check.replaceChildren(panelIcon('check'));
+let generationBoard=null;
+const workspaceOptions=[...document.querySelectorAll('[data-workspace]')];
+function closeWorkspaceMenu(restoreFocus=false){$('workspaceMenu').hidden=true;$('workspace').setAttribute('aria-expanded','false');if(restoreFocus)$('workspace').focus()}
+function updateWorkspaceMenu(){const generation=$('workspace').value==='generation';$('workspaceTitle').textContent=generation?'生成板':'素材库';for(const option of workspaceOptions)option.setAttribute('aria-selected',String(option.dataset.workspace===$('workspace').value))}
+function openWorkspaceMenu(direction=0){window.ArgoPanelMenus?.close();closeOpenMenu();$('workspaceMenu').hidden=false;$('workspace').setAttribute('aria-expanded','true');const current=workspaceOptions.findIndex(option=>option.dataset.workspace===$('workspace').value);workspaceOptions[(current+direction+workspaceOptions.length)%workspaceOptions.length].focus()}
+$('workspace').onclick=()=>{$('workspaceMenu').hidden?openWorkspaceMenu():closeWorkspaceMenu(true)};
+$('workspace').onkeydown=event=>{if(['ArrowDown','ArrowUp','Home','End'].includes(event.key)){event.preventDefault();openWorkspaceMenu(event.key==='ArrowUp'?-1:0);if(event.key==='Home')workspaceOptions[0].focus();if(event.key==='End')workspaceOptions.at(-1).focus()}};
+for(const option of workspaceOptions){option.onclick=()=>{const same=$('workspace').value===option.dataset.workspace;$('workspace').value=option.dataset.workspace;updateWorkspaceMenu();closeWorkspaceMenu(true);if(!same||connectionBlocked||refreshPending)$('workspace').onchange?.()};option.onkeydown=event=>{const index=workspaceOptions.indexOf(option);if(['ArrowDown','ArrowUp','Home','End'].includes(event.key)){event.preventDefault();workspaceOptions[event.key==='Home'?0:event.key==='End'?workspaceOptions.length-1:(index+(event.key==='ArrowDown'?1:-1)+workspaceOptions.length)%workspaceOptions.length].focus()}else if(event.key==='Escape'){event.preventDefault();event.stopPropagation();closeWorkspaceMenu(true)}else if(event.key==='Tab')closeWorkspaceMenu(true)}}
+document.addEventListener('click',event=>{if(!$('workspacePicker').contains(event.target))closeWorkspaceMenu()});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('workspaceMenu').hidden){event.preventDefault();closeWorkspaceMenu(true)}});
+let serial=0,ready=false,kind='all',revision='',projectRef='',nextOffset=null,items=[],busy=false,epoch=0,refreshTimer,searchTimer,bridgeContext={},transfer=null,thumbnailJobs=[],thumbnailActive=0,displayKey='',refreshPending=false,forceRefreshPending=false,selectionImporting=false,pluginHost=null;
+let connectionBlocked=true,messageKind='',detectedProject=null,promptedProject='',switchingProject=false;
+let nativeImporting=null,importContextEpoch=0,attachmentReading=false;
+let streamingAdvertisement=null;
+const refreshInterval=5000,refreshIdleWindow=30000;let refreshActiveUntil=Date.now()+refreshIdleWindow,manualRefreshPending=false;
+const icon={image:'<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m3 17 5-5 4 4 3-3 6 6"/>',video:'<rect x="3" y="5" width="13" height="14" rx="2"/><path d="m16 10 5-4v12l-5-4"/>',audio:'<path d="M9 18V5l11-2v13M9 8l11-2"/><ellipse cx="6" cy="18" rx="3" ry="2"/><ellipse cx="17" cy="16" rx="3" ry="2"/>'};
+function protocolError(value){const error=new Error(value?.message||'客户端请求失败');if(Number.isSafeInteger(value?.code))error.code=value.code;return error}
+function rpc(method,params={},timeout=30000){const id=++serial;return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{pending.delete(id);reject(new Error('连接暂未返回，请刷新核对。'));resumeFontReads()},timeout);pending.set(id,{resolve,reject,timer,method,toolName:method==='tools/call'?params.name:null});window.parent.postMessage({jsonrpc:'2.0',id,method,params},'*')})}
+function notify(method,params={}){window.parent.postMessage({jsonrpc:'2.0',method,params},'*')}
+function payload(value){if(value?.structuredContent){return value.structuredContent.result??value.structuredContent}for(const part of value?.content??[]){if(part.type!=='text')continue;try{const data=JSON.parse(part.text);if(data&&typeof data==='object')return data.result??data}catch{}}return {}}
+function textError(value){const data=payload(value);if(typeof data.summary==='string')return data.summary.slice(0,180);const text=value?.content?.find(x=>x.type==='text'&&!/^\s*[\[{]/.test(x.text))?.text;return typeof text==='string'?text.split('\n')[0].slice(0,180):'Argo暂不可用，请确认已打开工程并启用MCP。'}
+async function tool(name,args={},terminalReceipt=false){const result=await rpc('tools/call',{name,arguments:args},name==='argo_operation_status'?1860000:name==='argo_switch_project'?330000:45000);if(result?.isError){const state=payload(result),validOperation=/^argo-operation-[0-9a-f-]{36}$/i.test(state.operationRef??'');if(validOperation&&(['argo_assets_dimportAttachment','argo_operation_status','argo_operation_cancel'].includes(name)&&['cancelled','denied'].includes(state.status)||terminalReceipt&&['argo_assets','argo_operation_status'].includes(name)&&nativeImportTerminal.has(state.status)))return result;throw new Error(textError(result))}return result}
+function message(text,error=false,category='operation'){messageKind=category;$('message').textContent=text;$('message').classList.toggle('error',error)}
+function connectionMessage(error){
+ const text=error.message||'连接暂不可用。';
+ if(error.code===-32010||/Argo Host.*(?:退出|不可用)|stdio连接保留/.test(text))return '请打开 Argo 并启用本机连接。';
+ if(error.code===-32011||/本机MCP已被关闭/.test(text))return '本地连接已关闭，请在 Argo 中开启。';
+ if(error.code===-32012&&/撤销/.test(text))return '连接已撤销，请在 Argo 中重新连接。';
+ if(error.code===-32016&&/宿主选择已变化/.test(text))return '连接目标已更换，请重新加载插件。';
+ return text;
+}
+async function clearDisconnectedLibrary(label='未连接'){
+ invalidateNativeImport();
+ generationBoard?.invalidate();
+ 
+ epoch++;items=[];revision='';projectRef='';nextOffset=null;displayKey='';streamingAdvertisement=null;thumbnailJobs=[];previews.clear();selected.clear();
+ closeContextMenu();detectedProject=null;$('projectNotice').hidden=true;$('project').textContent=label;
+ const closing=closePlayback();render();await closing;
+}
+function hostIdentity(host){return JSON.stringify(['schemaVersion','bundleID','applicationPath','applicationVersion','build','helperPath','mcpProtocol','businessVersion','panelVersion','resourceURI','panelSHA256','pluginVersion'].map(key=>host?.[key]).concat([host?.capabilities?.slice().sort()]))}
+async function checkCompatibility(){const host=payload(await tool('argo_plugin_status'));const required=['compatibility.handshake.v1','objects.canonical.v1','library.read.v1','library.reference.v1','library.media.original.v1','library.media.video-frames.v1','library.preview.chunks.v1','attachment.transfer.v1','attachment.import.receipt.v1','approval.client.form.v1','session.reconnect.v1','generation.board.proposals.v2','generation.prompt.shared.v1','generation.parameters.direct-apply.v1'];if(host.schemaVersion!==1||host.businessVersion!==2||host.panelVersion!==1||!Array.isArray(host.capabilities)||required.some(x=>!host.capabilities.includes(x)))throw new Error('此 Argo 与素材面板不兼容，请升级宿主或使用兼容插件。');if(pluginHost&&hostIdentity(pluginHost)!==hostIdentity(host)){await clearDisconnectedLibrary('正在连接…');message('Argo 连接已更新，请重新核对参数与选择。')}pluginHost=host;$('project').title=`Argo ${host.applicationVersion} · ${host.build}\n${host.applicationPath}\n插件 ${host.pluginVersion}`;$('playerOpenGroup').hidden=!host.capabilities.includes('library.openWith.v1')}
+function safeThumbnail(value){return typeof value==='string'&&/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(value)&&value.length<90000?value:null}
+function selection(){for(const card of $('grid').querySelectorAll('.asset')){const active=selected.has(card.dataset.uri);card.setAttribute('aria-pressed',String(active));const check=card.querySelector('.check');if(active&&!check.firstElementChild)check.append(panelIcon('check'));else if(!active)check.replaceChildren()}const count=selected.size;$('selection').textContent=count?`已选择 ${count} 项`:'未选择素材';$('copy').disabled=$('reference').disabled=!count||!!transfer||selectionImporting||connectionBlocked;$('libraryImport').disabled=!!transfer||!!nativeImporting||attachmentReading||connectionBlocked;$('libraryImport').setAttribute('aria-busy',String(!!nativeImporting))}
+function selectPanelItems(values,mode){const next=mode==='replace'||mode==='clear'?new Map():new Map(selected);for(const item of values){if(mode==='remove')next.delete(item.uri);else if(mode!=='clear')next.set(item.uri,item)}if(next.size>32)throw new Error('每次最多引用32项。');selected.clear();for(const [uri,item] of next)selected.set(uri,item);selection()}
+function selectedReferenceText(){return [...selected.values()].map(item=>item.canonicalReference).join('\n')}
+function editingText(element){return element instanceof Element&&(element.matches('input,textarea')||element.isContentEditable)}
+document.addEventListener('copy',event=>{if($('workspace').value!=='assets'||event.defaultPrevented||$('copy').disabled||editingText(event.target)||editingText(document.activeElement)||window.getSelection()?.toString()||!event.clipboardData)return;event.clipboardData.setData('text/plain',selectedReferenceText());event.preventDefault();message('已复制完整编号。')});
+function referenceContent(values){return values.map(value=>({type:'resource_link',uri:value.uri,name:value.canonicalReference,title:value.canonicalReference,mimeType:value.mimeType,size:value.byteCount,_meta:{'openai/group':{title:value.canonicalReference},'argo/reference':{target:value.target,sourceRevision:value.sourceRevision,sha256:value.sha256}}}))}
+function updateLibraryEdges(){
+ const scroll=$('scroll'),viewport=$('libraryViewport'),visible=!viewport.hidden&&scroll.clientHeight>0,maximum=Math.max(0,scroll.scrollHeight-scroll.clientHeight);
+ for(const [edge,value]of [['top',visible&&scroll.scrollTop>1],['bottom',visible&&scroll.scrollTop<maximum-1]]){const attribute='data-fade-'+edge,next=String(value);if(viewport.getAttribute(attribute)!==next)viewport.setAttribute(attribute,next)}
+}
+let libraryScrollState={top:0,height:0,viewport:0};
+function syncLibraryScroll(){const scroll=$('scroll');libraryScrollState.height=scroll.scrollHeight;libraryScrollState.viewport=scroll.clientHeight;updateLibraryEdges()}
+function setLibraryScrollPosition(top){const scroll=$('scroll');scroll.scrollTop=top;libraryScrollState.top=scroll.scrollTop;syncLibraryScroll()}
+function currentLibraryPage(scope){return !panelClosed&&ready&&!connectionBlocked&&!!pluginHost&&!!projectRef&&document.visibilityState==='visible'&&$('workspace').value==='assets'&&!$('libraryViewport').hidden&&player.hidden&&scope.projectRef===projectRef&&scope.hostIdentity===hostIdentity(pluginHost)&&scope.revision===revision&&scope.kind===kind&&scope.query===$('search').value&&scope.key===displayKey&&scope.key===kind+'\n'+$('search').value&&scope.offset===nextOffset}
+$('scroll').addEventListener('scroll',()=>{
+ const scroll=$('scroll'),before=libraryScrollState,position={top:scroll.scrollTop,height:scroll.scrollHeight,viewport:scroll.clientHeight};libraryScrollState=position;updateLibraryEdges();
+ // Resizing alone never requests a page; a concurrent downward scroll still can.
+ if(position.top<=before.top||position.height<=position.viewport||position.top+position.viewport<position.height-1||busy||transfer||refreshPending||!Number.isSafeInteger(nextOffset)||nextOffset<=0)return;
+ const scope={projectRef,hostIdentity:hostIdentity(pluginHost),revision,kind,query:$('search').value,key:displayKey,offset:nextOffset};
+ if(!currentLibraryPage(scope))return;
+ refresh(true,false,false,scope);
+},{passive:true});
+if(typeof ResizeObserver!=='undefined'){const edges=new ResizeObserver(syncLibraryScroll);edges.observe($('scroll'));edges.observe($('grid'))}else window.addEventListener('resize',syncLibraryScroll);
+function updateAssetPreview(b,item){
+  if(previews.has(item.uri)&&(previews.get(item.uri).libraryAvailability!==item.availability||previews.get(item.uri).sourceRevision!==item.sourceRevision))previews.delete(item.uri);const cached=previews.get(item.uri);
+  const availability=cached?.availability==='available'?'available':item.availability==='missing'||cached?.availability==='missing'?'missing':['authorizationRequired','denied'].includes(cached?.availability)||['authorizationRequired','denied'].includes(item.availability)?'authorizationRequired':cached?.availability||item.availability;
+  const key=JSON.stringify([item.kind,item.sourceRevision,availability,cached?.src]);if(b.previewKey===key)return;b.previewKey=key;
+  const p=document.createElement('span');p.className='preview';
+  const stateLabel=availability==='missing'?'素材缺失':['authorizationRequired','denied'].includes(availability)?'需要授权':'';
+  if(stateLabel){const state=document.createElement('span');state.className='state';state.textContent=stateLabel;p.append(state)}else if(cached?.src){const img=document.createElement('img');img.alt='';img.src=cached.src;p.append(img)}else p.innerHTML='<svg viewBox="0 0 24 24">'+(icon[item.kind]||icon.image)+'</svg>';
+  const check=document.createElement('span');check.className='check';if(selected.has(item.uri))check.append(panelIcon('check'));p.append(check);
+  if(item.kind!=='image'){const tag=document.createElement('span');tag.className='tag';tag.textContent=item.kind==='video'?'视频':'音频';p.append(tag)}
+  const previous=b.querySelector('.preview');if(previous)previous.replaceWith(p);else b.prepend(p);
+}
+function render(){
+ const grid=$('grid'),existing=new Map([...grid.querySelectorAll('.asset')].map(node=>[node.dataset.uri,node])),nodes=[];
+ if(!items.length){const empty=document.createElement('div');empty.className='empty';empty.style.gridColumn='1/-1';empty.innerHTML='<svg viewBox="0 0 24 24">'+icon.image+'</svg>';const label=document.createElement('span');label.textContent=connectionBlocked?($('project').textContent==='未打开工程'?'未打开工程':'Argo 未连接'):ready?'暂无素材':'正在连接…';empty.append(label);nodes.push(empty)}
+ for(const item of items){
+  let b=existing.get(item.uri);
+  if(!b){b=document.createElement('button');b.className='asset';b.dataset.uri=item.uri;const n=document.createElement('span');n.className='name';b.append(n);
+   b.onclick=event=>{if(event.detail>1||connectionBlocked)return;const current=b.assetItem;try{selectPanelItems([current],!event.metaKey&&!event.ctrlKey?'replace':selected.has(current.uri)?'remove':'add')}catch(e){message(e.message)}};
+   b.ondblclick=()=>{if(!connectionBlocked)openPlayback(b.assetItem)};
+   b.oncontextmenu=event=>{event.preventDefault();if(connectionBlocked)return;closeContextMenu();contextItem=b.assetItem;contextSnapshot={projectRef,revision,hostIdentity:hostIdentity(pluginHost),uri:contextItem.uri,sourceRevision:contextItem.sourceRevision};const menu=$('contextMenu');$('playInPage').textContent=contextItem.kind==='image'?'在右侧查看':'在右侧播放';menu.hidden=false;menu.style.left=Math.max(0,Math.min(event.clientX,innerWidth-menu.offsetWidth-6))+'px';menu.style.top=Math.max(0,Math.min(event.clientY,innerHeight-menu.offsetHeight-6))+'px';$('playInPage').focus()};
+  }
+  b.assetItem=item;b.title=item.canonicalReference;b.setAttribute('aria-label',item.canonicalReference);b.querySelector('.name').textContent=item.canonicalReference;updateAssetPreview(b,item);nodes.push(b)
+ }
+ // Retain unchanged cards and decoded images, including across explicit refresh.
+ for(let index=0;index<nodes.length;index++)if(grid.children[index]!==nodes[index])grid.insertBefore(nodes[index],grid.children[index]||null);
+ while(grid.children.length>nodes.length)grid.lastElementChild.remove();
+ $('more').hidden=nextOffset===null;selection();syncLibraryScroll()
+}
+const player=document.createElement('section');player.id='player';player.hidden=true;player.setAttribute('role','region');player.setAttribute('aria-label','素材预览');player.innerHTML='<header><span id="playerTitle" class="grow"></span><div id="playerOpenGroup"><button id="playerOpenDefault" disabled><span>打开</span></button><button id="playerWays" aria-label="打开方式" aria-haspopup="menu" aria-expanded="false"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5"/></svg></button></div><button id="playerNativePreview" class="icon" aria-label="用系统播放器打开" title="用系统播放器打开" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 3H3v4M13 3h4v4M17 13v4h-4M7 17H3v-4"/></svg></button><button id="playerClose" aria-label="关闭播放器">×</button></header><div id="playerOpenMenu" role="menu" hidden></div><div class="player-body"><div id="playerMedia"></div><progress id="playerProgress" max="1" value="0"></progress><p id="playerStatus" role="status"></p></div>';document.body.append(player);
+$('playerWays').querySelector('svg').replaceWith(panelIcon('chevron'));
+document.body.append($('playerOpenMenu'));
+const playerBackdrop=document.createElement('div');playerBackdrop.id='playerBackdrop';playerBackdrop.hidden=true;playerBackdrop.setAttribute('aria-hidden','true');document.body.insertBefore(playerBackdrop,player);playerBackdrop.onclick=()=>closePlayback();
+let activePlayback=null,playbackEpoch=0,contextItem=null,contextSnapshot=null;
+function closeContextMenu(){contextItem=null;contextSnapshot=null;$('contextMenu').hidden=true}
+function openContextPlayback(){const item=contextItem,snapshot=contextSnapshot;closeContextMenu();if(!item||!snapshot||connectionBlocked)return false;const row=items.find(value=>value.assetID===item.assetID);if(snapshot.projectRef!==projectRef||snapshot.revision!==revision||snapshot.hostIdentity!==hostIdentity(pluginHost)||!row||row.uri!==snapshot.uri||row.sourceRevision!==snapshot.sourceRevision){message('素材已经变化，请重新选择。',true);return false}return openPlayback(item,null,'page')}
+const playbackDrains=new Set();
+function releaseNativePlayback(current){
+ for(const stream of current.streamSessions||[])releaseStreamingPlayback(current,stream);
+ if(current.nativeCleanup)return current.nativeCleanup;
+ const drain=(async()=>{
+  if(!current.nativeLeaseStarted)return;
+  if(current.readFlight)try{await current.readFlight}catch{}
+  if(current.nativeEOF)return;
+  if(!Number.isSafeInteger(current.totalBytes)||current.totalBytes<=0)return;
+  const result=await tool('argo_library_read',{uri:current.uri,offset:current.totalBytes,count:1,playbackID:current.playbackID,release:true}),part=result._meta?.playback;
+  current.nativeReleased=part?.leaseProtocol===1&&part.released===true&&part.base64===undefined;
+  if(!current.nativeReleased)current.nativeReleaseFailed=true;
+ })().catch(()=>{current.nativeReleaseFailed=true});
+ current.nativeCleanup=drain;playbackDrains.add(drain);drain.then(()=>playbackDrains.delete(drain));return drain;
+}
+function releasePlayback(current){
+ if(!current)return Promise.resolve();current.cancelled=true;for(const remove of current.mediaListeners||[])remove();current.mediaListeners=[];current.seekGesture=null;releaseNativePlayback(current);
+ try{current.media?.pause?.();current.media?.removeAttribute('src');current.media?.load?.()}catch{}
+ if(current.url){try{URL.revokeObjectURL(current.url)}catch{}current.url=null}
+ // Queue another local cleanup when a cancelled OPFS setup finishes late.
+ current.localCleanup=(current.localCleanup||Promise.resolve()).then(async()=>{const output=current.output;current.output=null;try{await output?.abort()}catch{}try{if(current.directory)await current.directory.removeEntry(current.fileName)}catch{}});
+ return current.localCleanup;
+}
+function closeOpenMenu(restoreFocus=false){$('playerOpenMenu').hidden=true;$('playerWays').setAttribute('aria-expanded','false');if(restoreFocus)$('playerWays').focus()}
+function closePlayback(){playbackEpoch++;const current=activePlayback;activePlayback=null;closeOpenMenu();player.hidden=playerBackdrop.hidden=true;player.removeAttribute('data-presentation');$('playerMedia').replaceChildren();return releasePlayback(current)}
+function checkPlayback(current){const row=items.find(value=>value.assetID===current.item.assetID);if(current.cancelled||activePlayback!==current||current.projectRef!==projectRef||current.hostIdentity!==hostIdentity(pluginHost)||row&&(row.uri!==current.uri||row.sourceRevision!==current.sourceRevision)||(current.commandGuard&&!current.commandGuard()))throw new Error('预览已关闭或会话已失效。')}
+function restorePlaybackIntent(current){if(current.cancelled||activePlayback!==current||!current.media||current.seekRequest||current.seekGesture?.down||current.media.seeking||current.stream&&(current.stream.cancelled||current.media.getAttribute('src')!==current.stream.url))return;if(current.playIntent)current.media.play().catch(()=>{});else current.media.pause()}
+function bindPlaybackIntent(current,media){
+ if(current.intentMedia===media)return;current.intentMedia=media;current.mediaListeners=[];
+ const alive=()=>!current.cancelled&&activePlayback===current,listen=(target,name,handler,capture=false)=>{target.addEventListener(name,handler,capture);current.mediaListeners.push(()=>target.removeEventListener(name,handler,capture))};
+ if(media.tagName==='VIDEO')media.setAttribute('controlsList','nofullscreen');
+ listen(media,'play',()=>{if(alive()&&!media.paused)current.playIntent=true});
+ listen(media,'pause',()=>{if(alive()&&media.paused&&!media.seeking&&!current.seekTask&&!current.seekRequest&&!current.stream?.cancelled&&!current.seekGesture?.down&&!current.seekGesture?.seeking)current.playIntent=false});
+ listen(media,'ended',()=>{if(alive())current.playIntent=false});
+ listen(media,'pointerdown',event=>{if(!alive()||event.button!==undefined&&event.button!==0)return;current.seekGesture={autoplay:current.seekTask||current.seekRequest||current.stream?.cancelled?current.playIntent:!media.paused,down:true,seeking:false}},true);
+ const finishPointer=()=>{const gesture=current.seekGesture;if(!alive()||!gesture)return;gesture.down=false;if(gesture.seeking||media.seeking){gesture.seeking=true;current.playIntent=gesture.autoplay;if(!media.seeking){current.seekGesture=null;restorePlaybackIntent(current)}}else{current.playIntent=!media.paused;current.seekGesture=null}};
+ for(const target of [media,window])for(const name of ['pointerup','pointercancel'])listen(target,name,finishPointer,true);
+ listen(media,'seeking',()=>{if(!alive())return;if(!current.stream){if(current.seekGesture)current.seekGesture.seeking=true;return}const stream=current.stream,target=media.currentTime;if(stream.internalSeekTarget!==null&&Math.abs(target-stream.internalSeekTarget)<.05){stream.internalSeekTarget=null;return}stream.internalSeekTarget=null;if(current.seekGesture)current.seekGesture.seeking=true;const autoplay=current.seekGesture?.autoplay??current.playIntent;current.playIntent=autoplay;if(!stream.cancelled&&stream.tracks.length&&stream.tracks.every(track=>streamingAhead(track.buffer,target)>0))return;requestStreamingSeek(current,Math.min(Math.max(0,target),Math.max(0,(stream.duration??current.duration)-.000001)),autoplay)});
+ listen(media,'seeked',()=>{if(!alive())return;if(current.seekGesture?.seeking){current.playIntent=current.seekGesture.autoplay;if(!current.seekGesture.down)current.seekGesture=null}restorePlaybackIntent(current)});
+}
+async function openNativePreview(current){
+ if(current.openingNativePreview||current.opening)return false;try{checkPlayback(current)}catch{return false}
+ if(!pluginHost?.capabilities.includes('library.openWith.v1')){$('playerStatus').textContent='当前 Argo 不支持用系统播放器打开。';return false}
+ current.openingNativePreview=true;$('playerNativePreview').disabled=true;$('playerNativePreview').setAttribute('aria-busy','true');closeOpenMenu();
+ try{
+  // Finish an existing menu lookup, then ask for the current system default.
+  // Playback continues throughout preparation and is closed only after handoff.
+  if(current.optionsLoading)await current.optionsLoading;checkPlayback(current);
+  const loaded=await loadOpenOptions(current);checkPlayback(current);if(!loaded)throw new Error(current.openWithError||'无法读取系统默认播放器。');
+  if(!current.application)throw new Error(current.applications.length?'没有找到系统默认播放器，请在“打开方式”中选择应用。':'没有找到系统默认播放器或可用的打开方式。');
+  if(!await openWithApplication(current,current.application,true))return false;checkPlayback(current);await closePlayback();return true;
+ }catch(e){if(activePlayback===current&&!current.cancelled)$('playerStatus').textContent='未能打开：'+e.message;return false}
+ finally{current.openingNativePreview=false;if(activePlayback===current&&!current.cancelled){$('playerNativePreview').disabled=false;$('playerNativePreview').setAttribute('aria-busy','false')}}
+}
+function canStreamPlayback(current){return current.item.kind==='video'&&typeof MediaSource==='function'&&streamingAdvertisement?.projectRef===current.projectRef&&streamingAdvertisement.hostIdentity===current.hostIdentity}
+function checkStreamingPlayback(current,stream){checkPlayback(current);if(stream.cancelled||current.stream!==stream)throw new Error('预览已关闭或会话已失效。')}
+function streamingWait(stream,milliseconds,progress=false){return new Promise(resolve=>{let timer;const finish=()=>{clearTimeout(timer);stream.waiters.delete(finish);stream.progressWaiters?.delete(finish);resolve()};stream.waiters.add(finish);if(progress)stream.progressWaiters.add(finish);timer=setTimeout(finish,milliseconds);if(stream.cancelled)finish()})}
+function streamingProgress(stream){for(const wake of [...stream.progressWaiters])wake()}
+function streamingPeerBlocked(stream,track){const gate=track.peerGate;if(!gate)return false;const peer=stream.tracks.find(value=>value.id===gate.id);return !!peer&&!peer.ended&&peer.segmentKey===gate.key&&(peer.appending||!peer.segmentComplete||peer.needsAck)}
+function streamingOpenOptions(current,stream){if(!stream.decoded||current.optionsRequested||!stream.tracks.length)return;if(stream.eof||stream.tracks.every(track=>track.ended||streamingAhead(track.buffer,current.media.currentTime)>=2))loadOpenOptions(current,true)}
+async function streamingCall(stream,args){const started=Date.now(),flight=tool('argo_library_stream',{...args,uri:stream.uri,playbackID:stream.playbackID});stream.flights.add(flight);try{const result=await flight,part=result._meta?.stream;if(!stream.cancelled&&part?.protocol===1&&part.playbackID===stream.playbackID)stream.lastNativeActivityAt=Math.max(stream.lastNativeActivityAt??0,started);return result}finally{stream.flights.delete(flight)}}
+function releaseStreamingPlayback(current,stream){
+ if(!stream)return Promise.resolve();if(stream.cleanup)return stream.cleanup;stream.cancelled=true;
+ for(const wake of [...stream.waiters])wake();for(const remove of stream.listeners||[])remove();
+ for(const track of stream.tracks||[]){track.pendingPage=null;try{if(track.buffer?.updating&&stream.source?.readyState==='open')track.buffer.abort()}catch{}}
+ if(current.media?.getAttribute('src')===stream.url)try{current.media.pause();current.media.removeAttribute('src');current.media.load()}catch{}
+ if(stream.url){try{URL.revokeObjectURL(stream.url)}catch{}if(current.url===stream.url)current.url=null;stream.url=null}
+ const cleanup=(async()=>{while(stream.flights.size)await Promise.allSettled([...stream.flights]);const result=await tool('argo_library_stream',{action:'close',uri:stream.uri,playbackID:stream.playbackID}),part=result._meta?.stream;if(part?.protocol!==1||part.status!=='closed'||part.playbackID!==stream.playbackID)throw new Error('播放会话未确认关闭。');stream.closed=true})().catch(()=>{stream.closeFailed=true}).finally(()=>{playbackDrains.delete(cleanup);current.streamSessions?.delete(stream)});
+ stream.cleanup=cleanup;playbackDrains.add(cleanup);return cleanup;
+}
+function failStreamingPlayback(current,stream,error){
+ if(stream.cancelled||current.cancelled||activePlayback!==current||current.stream!==stream)return;
+ current.error=String(error.message||error).slice(0,240);$('playerStatus').textContent=current.error;$('playerProgress').hidden=true;try{checkPlayback(current);loadOpenOptions(current,true)}catch{}releaseStreamingPlayback(current,stream);
+}
+function streamingBufferOperation(current,stream,track,action){
+ checkStreamingPlayback(current,stream);return new Promise((resolve,reject)=>{const buffer=track.buffer;let timer;const finish=error=>{clearTimeout(timer);buffer.removeEventListener('updateend',done);buffer.removeEventListener('error',failed);buffer.removeEventListener('abort',aborted);stream.waiters.delete(cancel);error?reject(error):resolve()};const done=()=>finish(),failed=()=>finish(new Error('此格式暂不能预览，请使用“打开方式”。')),aborted=()=>finish(new Error('预览已关闭或会话已失效。')),cancel=()=>finish(new Error('预览已关闭或会话已失效。'));buffer.addEventListener('updateend',done,{once:true});buffer.addEventListener('error',failed,{once:true});buffer.addEventListener('abort',aborted,{once:true});stream.waiters.add(cancel);timer=setTimeout(()=>finish(new Error('播放缓冲暂未完成。')),15000);try{if(buffer.updating)throw new Error('播放缓冲仍在更新。');action(buffer)}catch(error){finish(error)}})
+}
+function streamingAhead(buffer,time){for(let index=0;index<buffer.buffered.length;index++)if(buffer.buffered.start(index)<=time+.05&&buffer.buffered.end(index)>time)return buffer.buffered.end(index)-time;return 0}
+function streamingPullCount(current,stream,track){
+ // A final ACK may return the next GOP's first page in this same request.
+ // Keep it short so a large video reply cannot hold the peer AAC behind it.
+ // Once inside a decoded GOP, finish it promptly so the peer can advance.
+ const urgent=!stream.decoded||track.needsAck||track.segmentComplete||stream.tracks.some(value=>!value.ended&&!value.initialized);
+ return Math.min(stream.maxChunkBytes,stream.chunkBytes,urgent?1048576:4194304);
+}
+async function trimStreamingBuffer(current,stream,track){
+ // Do not remove while a fragmented mdat is still being appended.
+ if(!track.segmentComplete||track.buffer.updating||stream.source.readyState!=='open')return false;
+ const before=current.media.currentTime-2;if(before<=0||!track.buffer.buffered.length)return false;
+ // MSE extends removal to a random access point. Only completed passthrough
+ // segments provide a known independent boundary; never cut a long GOP.
+ let boundary=0;for(const start of track.segmentStarts||[])if(start>boundary&&start<=before)boundary=start;
+ const end=boundary-.000001;if(end<=0||track.buffer.buffered.start(0)>=end)return false;
+ await streamingBufferOperation(current,stream,track,buffer=>buffer.remove(0,end));checkStreamingPlayback(current,stream);track.segmentStarts=track.segmentStarts.filter(start=>start>=boundary);return true;
+}
+async function pumpStreamingTrack(current,stream,track){
+ let preparingSince=null;
+ while(!track.ended){
+  checkStreamingPlayback(current,stream);await trimStreamingBuffer(current,stream,track);checkStreamingPlayback(current,stream);
+  if(streamingAhead(track.buffer,current.media.currentTime)>=4&&!track.needsAck){await streamingWait(stream,100);continue}
+  // Native idle ownership expires while both tracks are backpressured. Reopen
+  // proactively before another pull, never as a retry of an authorization error.
+  if(Number.isFinite(stream.lastNativeActivityAt)&&Date.now()-stream.lastNativeActivityAt>20000){if(!stream.restarting){stream.restarting=true;requestStreamingSeek(current,current.media.currentTime,!current.media.paused)}return}
+  // Preparing already ACKed this track. The single-GOP barrier cannot
+  // advance until the same peer segment is complete and ACKed. A new peer
+  // segment wakes AAC immediately; per-page notifications recheck this gate.
+  if(streamingPeerBlocked(stream,track)){await streamingWait(stream,100,true);continue}track.peerGate=null;
+  let page=track.pendingPage;
+  if(!page){const count=streamingPullCount(current,stream,track),result=await streamingCall(stream,{action:'pull',track:track.id,cursor:track.cursor,count});page={part:result._meta?.stream,count}}
+  const {part,count}=page;checkStreamingPlayback(current,stream);
+  if(part?.protocol!==1||part.playbackID!==stream.playbackID||part.track!==track.id||part.cursor!==track.cursor)throw new Error('播放片段身份已变化。');
+  const acknowledged=track.needsAck;track.needsAck=false;if(acknowledged)streamingProgress(stream);
+  if(part.status==='preparing'||part.status==='ended'){
+   if(part.base64!==undefined||part.nextCursor!==track.cursor)throw new Error('播放片段顺序错误。');
+   if(part.status==='ended'){if(!track.initialized)throw new Error('播放初始化片段缺失。');track.ended=true;streamingProgress(stream);break}
+   preparingSince??=Date.now();if(Date.now()-preparingSince>45000)throw new Error('播放片段暂未就绪。');const peer=stream.tracks.find(value=>value!==track&&!value.ended);track.peerGate=peer?{id:peer.id,key:peer.segmentKey}:null;if(!streamingPeerBlocked(stream,track))await streamingWait(stream,50,true);continue;
+  }
+  preparingSince=null;
+  if(part.status!=='data'||typeof part.base64!=='string'||part.base64.length>Math.ceil(count/3)*4||!['initialization','media'].includes(part.kind)||typeof part.segmentEnd!=='boolean'||!Number.isSafeInteger(part.segmentSequence))throw new Error('播放片段不完整。');
+  if(part.kind==='initialization'?part.startSeconds!==null||part.endSeconds!==null:!Number.isFinite(part.startSeconds)||!Number.isFinite(part.endSeconds)||part.endSeconds<=part.startSeconds)throw new Error('播放片段时间无效。');
+  if(streamingAhead(track.buffer,current.media.currentTime)>=4){track.pendingPage=page;await streamingWait(stream,100);continue}
+  const bytes=unbase64(part.base64);if(!bytes.length||bytes.length>count||!Number.isSafeInteger(part.nextCursor)||part.nextCursor!==track.cursor+bytes.length)throw new Error('播放片段顺序错误。');
+  if(!track.initialized&&part.kind!=='initialization'||track.initialized&&part.kind==='initialization')throw new Error('播放初始化片段错误。');
+  const key=part.kind+':'+part.segmentSequence;
+  if(!track.segmentComplete&&track.segmentKey!==null&&track.segmentKey!==key||track.segmentKey===key&&(track.segmentStart!==part.startSeconds||track.segmentEnd!==part.endSeconds))throw new Error('播放片段版本已变化。');
+  track.segmentKey=key;track.segmentStart=part.startSeconds;track.segmentEnd=part.endSeconds;track.appending=true;streamingProgress(stream);
+  try{try{await streamingBufferOperation(current,stream,track,buffer=>buffer.appendBuffer(bytes))}catch(error){if(error.name!=='QuotaExceededError'||!await trimStreamingBuffer(current,stream,track))throw error;await streamingBufferOperation(current,stream,track,buffer=>buffer.appendBuffer(bytes))}}finally{track.appending=false}
+  checkStreamingPlayback(current,stream);track.pendingPage=null;track.cursor=part.nextCursor;track.segmentComplete=part.segmentEnd;track.needsAck=part.segmentEnd;if(part.kind==='initialization'&&part.segmentEnd)track.initialized=true;if(part.kind==='media'&&part.segmentEnd){track.segmentStarts??=[];if(!track.segmentStarts.includes(part.startSeconds))track.segmentStarts.push(part.startSeconds)}streamingProgress(stream);streamingOpenOptions(current,stream);
+ }
+ checkStreamingPlayback(current,stream);
+ if(stream.tracks.every(value=>value.ended)&&stream.source.readyState==='open'&&!stream.tracks.some(value=>value.buffer.updating)){stream.source.endOfStream();stream.eof=true;streamingOpenOptions(current,stream)}
+}
+async function startStreamingPlayback(current,startSeconds,autoplay){
+ checkPlayback(current);const stream={playbackID:crypto.randomUUID(),uri:current.uri,cancelled:false,flights:new Set(),waiters:new Set(),progressWaiters:new Set(),listeners:[],tracks:[]};
+ if(current.stream)releaseStreamingPlayback(current,current.stream);current.stream=stream;(current.streamSessions??=new Set()).add(stream);
+ const result=await streamingCall(stream,{action:'open',startSeconds}),part=result._meta?.stream;checkStreamingPlayback(current,stream);
+ if(part?.protocol!==1||part.playbackID!==stream.playbackID)throw new Error('播放会话身份无效。');
+ if(part.status==='unsupported'){releaseStreamingPlayback(current,stream);current.stream=null;return false}
+ if(part.status!=='ready'||!Number.isFinite(part.durationSeconds)||part.durationSeconds<=0||part.targetSeconds!==startSeconds||!Number.isFinite(part.actualStartSeconds)||part.actualStartSeconds<0||part.actualStartSeconds>startSeconds||!Number.isSafeInteger(part.maxChunkBytes)||part.maxChunkBytes<=0||!Array.isArray(part.tracks)||!part.tracks.length||part.tracks.length>2)throw new Error('播放会话合同无效。');
+ const ids=new Set();for(const value of part.tracks){if(!['video','audio'].includes(value.id)||ids.has(value.id)||typeof value.mimeType!=='string'||value.mimeType.length>256||!new RegExp('^'+value.id+'/mp4\\s*;').test(value.mimeType)||!Number.isFinite(value.timestampOffsetSeconds)||!MediaSource.isTypeSupported(value.mimeType))throw new Error('此格式暂不能预览，请使用“打开方式”。');ids.add(value.id)}if(!ids.has('video'))throw new Error('播放会话缺少视频轨道。');
+ stream.duration=current.duration=part.durationSeconds;stream.maxChunkBytes=Math.min(part.maxChunkBytes,20971520);stream.chunkBytes=Math.min(stream.maxChunkBytes,1048576);stream.internalSeekTarget=startSeconds;
+ let media=current.media;if(!media||media.tagName!=='VIDEO'){media=document.createElement('video');current.media=media;media.controls=true;media.setAttribute('playsinline','');media.preload='auto';$('playerMedia').replaceChildren(media)}
+ bindPlaybackIntent(current,media);const source=new MediaSource();stream.source=source;stream.url=URL.createObjectURL(source);current.url=stream.url;
+ const listen=(name,handler)=>{media.addEventListener(name,handler);stream.listeners.push(()=>media.removeEventListener(name,handler))};
+ listen('loadeddata',()=>{try{checkStreamingPlayback(current,stream);$('playerProgress').hidden=true;$('playerStatus').textContent='';current.commandGuard=null;stream.decoded=true;stream.chunkBytes=Math.min(stream.maxChunkBytes,4194304);streamingOpenOptions(current,stream)}catch{releaseStreamingPlayback(current,stream)}});
+ listen('error',()=>failStreamingPlayback(current,stream,new Error('此格式暂不能预览，请使用“打开方式”。')));
+ await new Promise(resolve=>{const finish=()=>{source.removeEventListener('sourceopen',finish);stream.waiters.delete(finish);resolve()};source.addEventListener('sourceopen',finish,{once:true});stream.waiters.add(finish);media.src=stream.url});checkStreamingPlayback(current,stream);
+ for(const value of part.tracks){const buffer=source.addSourceBuffer(value.mimeType);buffer.mode='segments';buffer.timestampOffset=value.timestampOffsetSeconds;stream.tracks.push({...value,buffer,cursor:0,initialized:false,segmentComplete:true,segmentKey:null,ended:false})}
+ source.duration=stream.duration;media.currentTime=startSeconds;restorePlaybackIntent(current);
+ for(const track of stream.tracks)track.pump=pumpStreamingTrack(current,stream,track).catch(error=>failStreamingPlayback(current,stream,error));
+ return true;
+}
+function requestStreamingSeek(current,target,autoplay){
+ if(current.cancelled||activePlayback!==current)return;current.playIntent=autoplay;current.seekRequest={target,autoplay};if(current.stream)releaseStreamingPlayback(current,current.stream);if(current.seekTask)return;
+ current.seekTask=(async()=>{while(current.seekRequest&&!current.cancelled&&activePlayback===current){const request=current.seekRequest;current.seekRequest=null;try{checkPlayback(current);$('playerProgress').hidden=false;$('playerStatus').textContent='正在准备预览…';const supported=await startStreamingPlayback(current,request.target,request.autoplay);if(!supported)throw new Error('此格式暂不能预览，请使用“打开方式”。')}catch(error){if(current.stream)failStreamingPlayback(current,current.stream,error);else if(!current.cancelled&&activePlayback===current){current.error=String(error.message).slice(0,240);$('playerStatus').textContent=current.error;$('playerProgress').hidden=true;try{checkPlayback(current);loadOpenOptions(current,true)}catch{}}}}})().finally(()=>{current.seekTask=null;if(current.seekRequest&&!current.cancelled&&activePlayback===current){const request=current.seekRequest;current.seekRequest=null;requestStreamingSeek(current,request.target,request.autoplay)}});
+}
+async function openPlayback(item,commandGuard=null,presentation='floating'){
+ closeContextMenu();closePlayback();presentation=presentation==='page'?'page':'floating';const playbackID=crypto.randomUUID(),current={item,uri:item.uri,sourceRevision:item.sourceRevision,cancelled:false,commandGuard,presentation,playIntent:!commandGuard,playbackID,projectRef,hostIdentity:hostIdentity(pluginHost),fileName:'preview-'+playbackID,applications:[],application:null};activePlayback=current;player.hidden=false;playerBackdrop.hidden=presentation==='page';player.setAttribute('data-presentation',presentation);$('playerNativePreview').hidden=!pluginHost?.capabilities.includes('library.openWith.v1');$('playerNativePreview').disabled=false;$('playerNativePreview').setAttribute('aria-busy','false');$('playerTitle').textContent=item.canonicalReference;$('playerStatus').textContent='正在准备预览…';$('playerProgress').hidden=false;$('playerProgress').value=0;$('playerOpenDefault').disabled=true;$('playerOpenDefault').replaceChildren(Object.assign(document.createElement('span'),{textContent:'打开'}));const streaming=canStreamPlayback(current);if(!streaming)loadOpenOptions(current);
+ try{
+  if(streaming){try{if(await startStreamingPlayback(current,0,!commandGuard))return current;loadOpenOptions(current)}catch(error){if(current.stream)failStreamingPlayback(current,current.stream,error);return current}}
+  if(!navigator.storage?.getDirectory)throw new Error('当前客户端不支持磁盘预览，请使用“打开方式”。');
+  const root=await navigator.storage.getDirectory();checkPlayback(current);current.directory=await root.getDirectoryHandle('argo-studio-previews-v1',{create:true});checkPlayback(current);
+  const file=await current.directory.getFileHandle(current.fileName,{create:true});checkPlayback(current);current.output=await file.createWritable();checkPlayback(current);let offset=0,total=null,chunkBytes=524288;
+  // Bounded file transfer to disk; the browser decodes the file, not JS frames.
+  do{
+   checkPlayback(current);const count=chunkBytes,retained=current.leaseProtocol===1;
+   if(retained)current.nativeLeaseStarted=true;
+   const flight=tool('argo_library_read',{uri:current.uri,offset,count,...(retained?{playbackID:current.playbackID}:{})});current.readFlight=flight;
+   let result;try{result=await flight}finally{if(current.readFlight===flight)current.readFlight=null}const part=result._meta?.playback;
+   if(!part||part.offset!==offset||!Number.isSafeInteger(part.totalBytes)||part.totalBytes<=0||typeof part.base64!=='string'||part.base64.length>Math.ceil(count/3)*4)throw new Error('播放片段不完整。');
+   if(total!==null&&total!==part.totalBytes)throw new Error('素材已经变化，请重新打开。');total=part.totalBytes;current.totalBytes=total;
+   const bytes=unbase64(part.base64);if(bytes.length>count||offset+bytes.length>total||!bytes.length)throw new Error('播放片段不完整。');
+   if(part.maxChunkBytes!==undefined){if(!Number.isSafeInteger(part.maxChunkBytes)||part.maxChunkBytes<524288)throw new Error('播放片段上限无效。');chunkBytes=Math.min(part.maxChunkBytes,1048576)}
+   if(retained&&part.leaseProtocol!==1)throw new Error('播放会话合同已变化，请重新打开。');
+   if(offset===0&&part.leaseProtocol===1)current.leaseProtocol=1;
+   const end=offset+bytes.length;if(part.nextOffset!==(end===total?null:end))throw new Error('播放片段顺序错误。');current.nativeEOF=part.nextOffset===null;checkPlayback(current);await current.output.write(bytes);checkPlayback(current);offset=end;$('playerProgress').value=offset/total;
+  }while(offset<total);
+  await current.output.close();current.output=null;checkPlayback(current);const diskFile=await file.getFile();checkPlayback(current);current.url=URL.createObjectURL(diskFile);const media=document.createElement(item.kind==='audio'?'audio':item.kind==='image'?'img':'video');current.media=media;if(item.kind==='image')media.alt=item.canonicalReference;else{media.controls=true;media.setAttribute('playsinline','');media.preload='metadata';bindPlaybackIntent(current,media)}media.src=current.url;media.onerror=()=>{if(activePlayback===current&&!current.cancelled){current.error='此格式暂不能预览，请使用“打开方式”。';$('playerStatus').textContent=current.error;releaseNativePlayback(current)}};$('playerMedia').replaceChildren(media);$('playerProgress').hidden=true;$('playerStatus').textContent='';if(item.kind!=='image'&&!commandGuard)try{await media.play()}catch{}current.commandGuard=null;
+ }catch(e){if(!current.cancelled&&activePlayback===current){current.error=String(e.message).slice(0,240);$('playerStatus').textContent=e.message;$('playerProgress').hidden=true}await releasePlayback(current)}
+ return current;
+}
+function applicationLabel(button,app,current){button.replaceChildren();const src=current.icons?.get(app.applicationRef);if(typeof src==='string'&&src.startsWith('data:image/png;base64,')&&src.length<24000){const image=document.createElement('img');image.alt='';image.src=src;button.append(image)}button.append(Object.assign(document.createElement('span'),{textContent:app.name}))}
+async function loadOpenOptions(current,once=false){
+ if(!pluginHost?.capabilities.includes('library.openWith.v1')||once&&current.optionsRequested)return false;if(current.optionsLoading)return current.optionsLoading;current.optionsRequested=true;
+ const loading=(async()=>{try{const result=await tool('argo_library_open_options',{uri:current.uri});checkPlayback(current);const data=payload(result);current.applications=(data.applications||[]).filter(x=>typeof x.applicationRef==='string'&&typeof x.name==='string');current.icons=new Map((result._meta?.openWithIcons||[]).map(x=>[x.applicationRef,x.icon]));current.application=current.applications.find(x=>x.isDefault===true)||null;current.optionsReady=true;current.openWithError='';applicationLabel($('playerOpenDefault'),{...(current.application||{}),name:'打开'},current);$('playerOpenDefault').title=current.application?'用'+current.application.name+'打开':'没有找到系统默认应用';$('playerOpenDefault').disabled=!current.application;return true}catch(e){if(activePlayback===current&&!current.cancelled){current.openWithError=e.message;current.application=null;current.optionsReady=false;$('playerOpenDefault').disabled=true}return false}})();current.optionsLoading=loading;try{return await loading}finally{if(current.optionsLoading===loading)current.optionsLoading=null}
+}
+async function openWithApplication(current,app,fromNativePreview=false){
+ if(current.opening||current.openingNativePreview&&!fromNativePreview)return false;try{checkPlayback(current)}catch{return false}current.opening=true;closeOpenMenu();
+ try{if(!pluginHost?.capabilities.includes('library.openWith.v1'))throw new Error('当前 Argo 不支持打开方式。');if(typeof app?.applicationRef!=='string')throw new Error('没有找到可用的打开方式。');const result=payload(await tool('argo_library_open_with',{uri:current.uri,applicationRef:app.applicationRef}));checkPlayback(current);if(result.status!=='opened'||result.canonicalReference!==current.item.canonicalReference)throw new Error('打开结果尚未确认。');current.playIntent=false;current.media?.pause?.();$('playerStatus').textContent='已用'+result.applicationName+'打开。';return true}catch(e){if(activePlayback===current&&!current.cancelled)$('playerStatus').textContent='未能打开：'+e.message;return false}finally{current.opening=false}
+}
+$('playerClose').onclick=()=>closePlayback();$('playerNativePreview').onclick=()=>{if(activePlayback)openNativePreview(activePlayback)};$('playerOpenDefault').onclick=()=>{const current=activePlayback;if(current?.application)openWithApplication(current,current.application)};
+$('playInPage').onclick=()=>openContextPlayback();
+$('playerWays').onclick=async event=>{event.stopPropagation();const current=activePlayback;if(!current||current.openingNativePreview||current.opening)return;if(!$('playerOpenMenu').hidden){closeOpenMenu(true);return}window.ArgoPanelMenus?.close();closeWorkspaceMenu();if(!current.optionsReady)await loadOpenOptions(current);if(activePlayback!==current||current.cancelled)return;const menu=$('playerOpenMenu');menu.replaceChildren();for(const app of current.applications){const button=document.createElement('button');button.setAttribute('role','menuitem');button.tabIndex=-1;applicationLabel(button,app,current);const check=document.createElement('span');check.className='workspace-check';check.append(panelIcon('check'));check.setAttribute('aria-hidden','true');if(app.isDefault)check.style.visibility='visible';button.append(check);button.onclick=()=>openWithApplication(current,app);menu.append(button)}if(!menu.children.length){$('playerStatus').textContent=current.openWithError||'没有找到可用的打开方式。';return}menu.hidden=false;$('playerWays').setAttribute('aria-expanded','true');window.ArgoPanelMenus?.position(menu,$('playerWays'));menu.querySelector('button')?.focus()};
+$('playerWays').onkeydown=event=>{if(['ArrowDown','ArrowUp','Home','End'].includes(event.key)){event.preventDefault();$('playerWays').click()}};
+$('playerOpenMenu').onkeydown=event=>window.ArgoPanelMenus?.keyboard($('playerOpenMenu'),event,closeOpenMenu);
+window.addEventListener('resize',()=>{if(!$('playerOpenMenu').hidden)window.ArgoPanelMenus?.position($('playerOpenMenu'),$('playerWays'))});
+document.addEventListener('click',event=>{if(!$('playerOpenMenu').contains(event.target)&&!$('playerOpenGroup').contains(event.target))closeOpenMenu()});
+document.addEventListener('click',event=>{if(!$('contextMenu').contains(event.target))closeContextMenu()});
+document.addEventListener('keydown',event=>{if(event.key!=='Escape')return;if(!$('contextMenu').hidden){event.preventDefault();closeContextMenu();return}if(!player.hidden){event.preventDefault();if(!$('playerOpenMenu').hidden)closeOpenMenu();else closePlayback()}});
+async function returnToLibrary(){if(handledResource&&typeof window.openai?.requestClose==='function'){try{await window.openai.requestClose();return true}catch{}}return false}
+async function approveProjectSwitch(){
+ if(!detectedProject||switchingProject)return;switchingProject=true;$('switchProject').disabled=true;
+ const target=detectedProject;promptedProject=target.projectRef;
+ try{const result=payload(await tool('argo_switch_project',{projectRef:target.projectRef}));
+  if(result.status==='authorized'){invalidateNativeImport();detectedProject=null;connectionBlocked=false;projectRef='';revision='';items=[];previews.clear();selected.clear();$('projectNotice').hidden=true;message('');refreshPending=true;}
+  else message(result.status==='cancelled'?'已取消更换项目。':'项目已变化，请重新确认。',false,'connection');
+ }catch(e){message(e.message,true,'connection')}
+ finally{switchingProject=false;$('switchProject').disabled=false;selection()}
+}
+$('switchProject').onclick=async()=>{await approveProjectSwitch();if(!busy)refresh()};
+async function checkProjectConnection(){
+ if(!pluginHost?.capabilities.includes('session.project-switch.v1'))return true;
+ const data=payload(await tool('argo_project_connection'));
+ if(data.status==='ready'){const wasBlocked=connectionBlocked;connectionBlocked=false;detectedProject=null;$('projectNotice').hidden=true;if(wasBlocked)selection();return true}
+ connectionBlocked=true;invalidateNativeImport();selected.clear();closeContextMenu();await closePlayback();selection();
+ if(data.status==='projectChanged'){
+  items=[];previews.clear();revision='';render();detectedProject=data;$('projectNotice').hidden=false;
+  $('switchProject').textContent='更换到 '+data.projectName;message('检测到新项目：'+data.projectName,false,'connection');
+  if(promptedProject!==data.projectRef)await approveProjectSwitch();
+ }else{await clearDisconnectedLibrary('未打开工程');message('请在 Argo 打开或保存工程。',false,'connection')}
+ return false;
+}
+async function refresh(more=false,force=false,manual=false,pageScope=null){
+ if(pageScope&&!currentLibraryPage(pageScope))return;
+ if(!ready)return;if(transfer||busy){refreshPending=true;forceRefreshPending=forceRefreshPending||force;manualRefreshPending=manualRefreshPending||manual;return}busy=true;clearTimeout(refreshTimer);refreshTimer=null;
+ if(manual){refreshActiveUntil=Date.now()+refreshIdleWindow;$('refresh').setAttribute('aria-busy','true');$('refresh').disabled=true}
+ const previousProject=projectRef,previousRevision=revision;
+ if(force){for(const preview of previews.values())preview.at=0;revision='';message('')}
+ let ticket=++epoch;const query=$('search').value,requestedKind=kind,key=requestedKind+'\n'+query;
+ let retainedCount=!more&&key===displayKey?items.length:0;
+ try{
+  if(force||!pluginHost)await checkCompatibility();
+  if(!await checkProjectConnection())return;
+  if(pageScope&&!currentLibraryPage(pageScope))return;
+  ticket=epoch;
+  let listResult=await tool('argo_library_list',{query,kind:requestedKind,offset:more?(nextOffset??0):0,...(revision&&(more||key===displayKey)?{ifRevision:revision}:{})}),data=payload(listResult);
+  if(ticket!==epoch)return;
+  if(pageScope&&(!currentLibraryPage(pageScope)||data.projectRef!==pageScope.projectRef||data.revision!==pageScope.revision))return;
+  const projectChanged=projectRef&&projectRef!==data.projectRef;
+  if(projectChanged){streamingAdvertisement=null;invalidateNativeImport();generationBoard?.invalidate();selected.clear();previews.clear();items=[];retainedCount=0;if(data.notModified){listResult=await tool('argo_library_list',{query,kind:requestedKind,offset:0});data=payload(listResult)}}
+  if(ticket!==epoch)return;
+  if(!data.notModified){
+   const incoming=Array.isArray(data.items)?data.items:[];
+   let following=data.nextOffset;
+   // A background update keeps the pages the user has already opened. Only
+   // fresh, same-revision pages are combined; renamed/replaced pins expire.
+   while(!more&&incoming.length<retainedCount&&following!==null){
+    const page=payload(await tool('argo_library_list',{query,kind:requestedKind,offset:following,ifRevision:data.revision}));
+    if(page.projectRef!==data.projectRef||page.revision!==data.revision||!Array.isArray(page.items)||!page.items.length)throw new Error('素材库已变化，请刷新核对。');
+    incoming.push(...page.items);following=page.nextOffset;
+   }
+   if(ticket!==epoch)return;
+   const priorPins=new Map(items.map(value=>[value.assetID,value.uri]));
+   if(incoming.some(value=>priorPins.has(value.assetID)&&priorPins.get(value.assetID)!==value.uri)){generationBoard?.invalidate();selected.clear();previews.clear();closePlayback();message('素材连接已更新，请重新核对参数与选择。')}
+   nextOffset=following;items=more?items.concat(incoming):incoming;
+   const live=new Set(items.map(x=>x.uri));if(!more)for(const uri of selected.keys())if(!live.has(uri))selected.delete(uri);
+  }
+  if(projectChanged&&activePlayback)closePlayback();
+  const changed=projectRef!==data.projectRef||revision!==data.revision||displayKey!==key||!data.notModified;
+  if(previousProject!==data.projectRef||previousRevision!==data.revision)refreshActiveUntil=Date.now()+refreshIdleWindow;
+  const resetPosition=!more&&(projectRef!==data.projectRef||displayKey!==key);
+  projectRef=data.projectRef;revision=data.revision;displayKey=key;const streaming=listResult._meta?.streaming;streamingAdvertisement=streaming?.protocol===1&&streaming.tool==='argo_library_stream'&&streaming.mode==='split-fmp4'?{projectRef,hostIdentity:hostIdentity(pluginHost)}:null;$('project').textContent=data.projectName||'当前工程';if(changed)render();if(resetPosition)setLibraryScrollPosition(0);
+  if(messageKind==='connection'||($('message').classList.contains('error')&&/当前工程与原连接不一致|MCP权限或工程绑定已变化/.test($('message').textContent)))message('');
+  thumbnailJobs=items.filter(x=>!previews.has(x.uri)||Date.now()-previews.get(x.uri).at>30000);thumbnails(ticket);
+  if($('workspace').value==='assets'&&pluginHost?.capabilities.includes('generation.board.proposals.v2'))await generationBoard?.observeProposals();
+ }catch(e){if(pageScope&&!currentLibraryPage(pageScope))return;pluginHost=null;connectionBlocked=true;await clearDisconnectedLibrary();message(connectionMessage(e),e.code!==-32010&&e.code!==-32011,'connection')}
+ finally{busy=false;if(manual){$('refresh').setAttribute('aria-busy','false');$('refresh').disabled=false}if(refreshPending){const force=forceRefreshPending,user=manualRefreshPending;refreshPending=false;forceRefreshPending=false;manualRefreshPending=false;queueMicrotask(()=>refresh(false,force,user))}else schedule()}
+}
+function thumbnails(ticket){while(thumbnailActive<2&&thumbnailJobs.length&&ticket===epoch&&!transfer){const item=thumbnailJobs.shift(),scope=projectRef,card=[...$('grid').querySelectorAll('.asset')].find(node=>node.dataset.uri===item.uri);thumbnailActive++;(async()=>{try{const result=await tool('argo_library_thumbnail',{assetID:item.assetID,projectRef:scope,sourceRevision:item.sourceRevision});if(ticket!==epoch||scope!==projectRef||!card?.isConnected||card.assetItem?.sourceRevision!==item.sourceRevision||card.assetItem?.availability!==item.availability)return;const preview={src:safeThumbnail(result._meta?.thumbnail),availability:payload(result).availability,libraryAvailability:item.availability,sourceRevision:item.sourceRevision,at:Date.now()};previews.set(item.uri,preview);while(previews.size>120)previews.delete(previews.keys().next().value);updateAssetPreview(card,card.assetItem)}catch{if(ticket===epoch)previews.delete(item.uri)}finally{thumbnailActive--;thumbnails(epoch)}})()}}
+function schedule(){
+ clearTimeout(refreshTimer);refreshTimer=null;
+ if($('workspace').value!=='assets')return;
+ const remaining=refreshActiveUntil-Date.now();
+ if(!ready||transfer||busy||document.visibilityState!=='visible'||remaining<=0)return;
+ refreshTimer=setTimeout(()=>{refreshTimer=null;if(Date.now()<refreshActiveUntil&&document.visibilityState==='visible')refresh()},Math.min(refreshInterval,remaining));
+}
+function refreshActivity(){
+ const resumed=Date.now()>=refreshActiveUntil;refreshActiveUntil=Date.now()+refreshIdleWindow;
+ if($('workspace').value!=='assets'){generationBoard?.activity();return}
+ if(!ready||transfer||busy||document.visibilityState!=='visible')return;
+ if(resumed){clearTimeout(refreshTimer);refreshTimer=null;queueMicrotask(()=>{if(!busy&&!transfer)refresh()})}
+ else if(!refreshTimer)schedule();
+}
+for(const event of ['click','keydown','input','wheel','focusin'])document.addEventListener(event,refreshActivity,{passive:true});
+window.addEventListener('focus',refreshActivity);
+$('refresh').querySelector('path').setAttribute('d','M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8M21 3v5h-5M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16M8 16H3v5');
+$('refresh').setAttribute('aria-busy','false');$('refresh').onclick=()=>{window.ArgoPanelMenus?.close();closeWorkspaceMenu();closeOpenMenu();if($('workspace').value==='generation')generationBoard?.refresh();else refresh(false,true,true)};$('more').onclick=()=>refresh(true);$('search').oninput=()=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>{selected.clear();refresh()},200)};for(const b of document.querySelectorAll('[data-kind]'))b.onclick=()=>{if(kind===b.dataset.kind&&!connectionBlocked&&!refreshPending)return;kind=b.dataset.kind;for(const t of document.querySelectorAll('[data-kind]'))t.setAttribute('aria-pressed',String(t===b));selected.clear();refresh()};
+$('copy').onclick=async()=>{if($('copy').disabled)return;const text=selectedReferenceText();try{await navigator.clipboard.writeText(text);message('已复制完整编号。')}catch{message(text)}};
+$('reference').onclick=async()=>{const chosen=[...selected.values()];$('reference').disabled=true;try{const verified=[];for(const item of chosen)verified.push(payload(await tool('argo_library_media',{uri:item.uri})));await rpc('ui/update-model-context',{content:referenceContent(verified),structuredContent:{argoReferences:verified}});message('已引用：'+verified.map(x=>x.canonicalReference).join('、'))}catch(e){message('尚未添加引用：'+e.message,true)}finally{selection()}};
+const nativeImportTerminal=new Set(['saved','completed','applied','failed','denied','cancelled','partial','uncertain','needsReconciliation','interrupted','expired']);
+function invalidateNativeImport(){importContextEpoch++;nativeImporting=null;selection()}
+function nativeImportCurrent(current){return nativeImporting===current&&current.contextEpoch===importContextEpoch&&current.projectRef===projectRef&&current.hostIdentity===hostIdentity(pluginHost)&&!connectionBlocked&&!panelClosed}
+function nativeImportOutcome(operation){
+ if(['cancelled','denied'].includes(operation.status))return {text:'已取消本次导入。',refresh:false};
+ if(['uncertain','needsReconciliation'].includes(operation.status))throw new Error('导入结果尚未确认，请在 Argo 核对。');
+ if(!['saved','completed','partial'].includes(operation.status))throw new Error(operation.summary||'本次导入未完成，请在 Argo 核对。');
+ const data=operation.result,counts=['imported','reused','failed'];
+ if(!data||!['completed','partial'].includes(data.status)||counts.some(key=>!Number.isSafeInteger(data[key])||data[key]<0)||typeof data.cancelled!=='boolean'||typeof data.projectSaved!=='boolean'||!Array.isArray(data.items)||data.uploaded!==false||data.insertedIntoTimeline!==false||data.destinationScope!=='project'||!Array.isArray(data.destinationShotIDs)||data.destinationShotIDs.length)throw new Error('导入结果尚未确认，请在 Argo 核对。');
+ if((data.imported>0||data.projectSaved)&&(operation.status!=='saved'||data.projectSaved!==true||typeof data.saveReceiptID!=='string'||!data.saveReceiptID.trim()))throw new Error('导入保存尚未确认，请在 Argo 核对。');
+ const parts=[];if(data.imported)parts.push(`新增 ${data.imported} 项`);if(data.reused)parts.push(`复用 ${data.reused} 项`);if(data.failed)parts.push(`失败 ${data.failed} 项`);
+ const partial=data.status==='partial'||data.failed>0||data.cancelled,heading=partial?(data.imported+data.reused>0?'部分导入完成：':'导入未完成：'):'导入完成：';
+ return {text:parts.length?heading+parts.join('，')+(data.cancelled?'；其余已取消。':'。'):data.cancelled?'已取消本次导入。':'没有新增素材。',error:partial,refresh:true};
+}
+async function importNativeAssets(){
+ if(nativeImporting||transfer||attachmentReading||connectionBlocked||!ready||!projectRef)return false;
+ const current={contextEpoch:importContextEpoch,projectRef,hostIdentity:hostIdentity(pluginHost),operationRef:null};nativeImporting=current;selection();message('请在客户端确认并选择素材。');
+ try{
+  let operation=payload(await tool('argo_assets',{tool:'assets.import',arguments:{}},true));
+  if(!nativeImportCurrent(current))return false;
+  if(!/^argo-operation-[0-9a-f-]{36}$/i.test(operation.operationRef??''))throw new Error('导入回执尚未确认，请在 Argo 核对。');
+  current.operationRef=operation.operationRef;const deadline=Date.now()+1800000;let checked=false;
+  while(!nativeImportTerminal.has(operation.status)){
+   if(Date.now()>=deadline)throw new Error('导入确认已到期，请在 Argo 核对原操作。');
+   if(checked){await new Promise(resolve=>setTimeout(resolve,350));if(Date.now()>=deadline)throw new Error('导入确认已到期，请在 Argo 核对原操作。')}
+   if(!nativeImportCurrent(current))return false;
+   operation=payload(await tool('argo_operation_status',{operationRef:current.operationRef},true));
+   if(!nativeImportCurrent(current))return false;
+   if(operation.operationRef!==current.operationRef)throw new Error('导入回执身份已变化，请在 Argo 核对。');checked=true;
+  }
+  const outcome=nativeImportOutcome(operation);message(outcome.text,!!outcome.error);if(outcome.refresh&&nativeImportCurrent(current))await refresh();return !outcome.error;
+ }catch(error){if(nativeImportCurrent(current))message(error.message,true);return false}
+ finally{if(nativeImporting===current){nativeImporting=null;selection()}}
+}
+$('libraryImport').onclick=()=>importNativeAssets();
+function base64(bytes){let s='';for(let i=0;i<bytes.length;i+=16384)s+=String.fromCharCode(...bytes.subarray(i,i+16384));return btoa(s)}
+function unbase64(s){const out=new Uint8Array(s.length*3/4);let length=0;for(let i=0;i<s.length;i+=65536){const value=atob(s.slice(i,i+65536));for(let j=0;j<value.length;j++)out[length++]=value.charCodeAt(j)}return out.slice(0,length)}
+async function stage(file){
+ if(nativeImporting)throw new Error('请先完成当前素材导入。');
+ if(transfer)throw new Error('请先完成当前附件。');
+ if(!file.size||file.size>1073741824)throw new Error('附件为空或超过1 GB传递上限。');
+ transfer={name:file.name,cancelled:false,id:null,operation:null};const current=transfer;let imported=false;selection();
+ clearTimeout(refreshTimer);$('transfer').hidden=false;$('transferCancel').hidden=false;$('transferName').textContent=file.name;$('transferState').textContent='正在传递附件…';$('progress').value=0;
+ try{
+  let completed;
+   const begun=payload(await tool('argo_attachment_begin',{name:file.name,byteCount:file.size}));current.id=begun.transferID;
+   for(let offset=0;offset<file.size;offset+=begun.chunkBytes){if(current.cancelled)throw new Error('已取消附件传递。');const bytes=new Uint8Array(await file.slice(offset,offset+begun.chunkBytes).arrayBuffer());const data=payload(await tool('argo_attachment_append',{transferID:current.id,offset,base64:base64(bytes)}));$('progress').value=data.receivedBytes/file.size}
+   completed=payload(await tool('argo_attachment_finish',{transferID:current.id}));
+  if(typeof completed.transferID!=='string'||completed.status!=='readyForImport')throw new Error('素材尚未准备完成。');
+  if(current.cancelled)throw new Error('已取消素材传递。');
+  $('transferState').textContent='等待客户端确认加入素材库…';$('transferCancel').hidden=true;
+  let operation=payload(await tool('argo_assets_dimportAttachment',{transferID:completed.transferID}));current.operation=operation.operationRef;
+  if(typeof current.operation!=='string')throw new Error('原生操作未建立，未加入素材库。');
+  const deadline=Date.now()+1800000;
+  while(!['saved','completed','failed','denied','cancelled','uncertain','needsReconciliation','interrupted','expired'].includes(operation.status)){
+   if(Date.now()>deadline)throw new Error('确认已到期，请在Argo核对原操作；没有再次导入。');
+   if(current.cancelled){operation=payload(await tool('argo_operation_cancel',{operationRef:current.operation}));break}
+   await new Promise(r=>setTimeout(r,350));operation=payload(await tool('argo_operation_status',{operationRef:current.operation}));
+  }
+  if(operation.status==='saved'&&operation.result?.canonicalReference){
+   imported=true;message('已加入素材库：'+operation.result.canonicalReference);
+  }else if(['denied','cancelled'].includes(operation.status)){try{await tool('argo_attachment_discard',{transferID:current.id})}catch{}message('已取消，未加入素材库。')}
+  else throw new Error(operation.summary||'导入未完成，请核对Argo原操作。');
+ }catch(e){if(current.id&&!current.operation)try{await tool('argo_attachment_discard',{transferID:current.id})}catch{}message(e.message,!current.cancelled)}
+ finally{transfer=null;$('transfer').hidden=true;selection();await refresh()}
+ return imported;
+}
+$('transferCancel').onclick=()=>{if(transfer){transfer.cancelled=true;$('transferState').textContent='正在停止…'}};
+let handledResource='';async function chatAttachment(file){if(!file||file.resourceUri===handledResource)return;if(transfer||nativeImporting||attachmentReading){message('请先完成当前素材导入，再选择这份聊天附件。',true);return}attachmentReading=true;selection();try{if(typeof file.name!=='string'||typeof file.resourceUri!=='string')throw new Error('客户端没有提供真实附件。');handledResource=file.resourceUri;message('正在读取聊天附件…');const result=await rpc('resources/read',{uri:file.resourceUri,_meta:{'openai/resource':{representation:'blob'}}},60000);const resource=result.contents?.find(x=>typeof x.blob==='string');if(!resource)throw new Error('当前客户端未提供附件字节；请使用“导入”选择该文件。');if(resource.blob.length>1431655768)throw new Error('附件超过1 GB传递上限。');const bytes=unbase64(resource.blob);if(await stage(new File([bytes],file.name,{type:resource.mimeType||''})))await returnToLibrary()}catch(e){handledResource='';message('尚未导入：'+e.message,true)}finally{attachmentReading=false;selection()}}
+function fontResource(uri){return new Promise((resolve,reject)=>{
+ const resume=()=>{
+  if(panelClosed){fontReadWaiters.delete(resume);reject(new Error('面板已关闭'));return}
+  if(fontReadsActive>=2||[...pending.values()].some(request=>request.method==='tools/call'))return;
+  fontReadWaiters.delete(resume);fontReadsActive++;
+  rpc('resources/read',{uri},45000).then(resolve,reject).finally(()=>{fontReadsActive--;resumeFontReads()});
+ };
+ fontReadWaiters.add(resume);resume();
+})}
+async function bundledFont(name,family,style='normal'){
+ let total=0,bytes,generation=null;
+ const read=async(offset,expectedLength)=>{
+  const uri=generation?`ui://argo-studio/font-v2/${generation}/${name}/${offset}`:`ui://argo-studio/font-v1/${name}/${offset}`;
+  const value=(await fontResource(uri)).contents?.[0],meta=value?._meta?.argoFont;
+  if(!meta||meta.offset!==offset||!Number.isSafeInteger(meta.totalBytes)||meta.totalBytes<=0||meta.totalBytes>29360128||typeof value.blob!=='string')throw new Error('字体资源不可用');
+  if(meta.generation!==undefined){
+   if(typeof meta.generation!=='string'||!meta.generation.match(/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/))throw new Error('字体资源版本无效');
+   if(bytes&&generation!==meta.generation)throw new Error('字体资源已更新，请刷新面板。');
+  }else if(generation||pluginHost?.capabilities?.includes('resources.live-snapshot.v1'))throw new Error('字体资源缺少版本。');
+  if(!bytes){total=meta.totalBytes;generation=meta.generation??null;bytes=new Uint8Array(total)}
+  if(meta.totalBytes!==total)throw new Error('字体资源已变化。');
+  const part=unbase64(value.blob),end=offset+part.length;
+  if(!part.length||end>total||(expectedLength!==undefined&&part.length!==expectedLength))throw new Error('字体资源不完整');
+  if(meta.nextOffset!==(end===total?null:end))throw new Error('字体资源顺序错误');
+  bytes.set(part,offset);return end;
+ };
+ const chunkBytes=await read(0);
+ if(generation&&chunkBytes<total){
+  if(Math.ceil(total/chunkBytes)>112)throw new Error('字体资源超限');
+  const lastOffset=Math.floor((total-1)/chunkBytes)*chunkBytes;
+  for(let offset=chunkBytes;offset<lastOffset;offset+=chunkBytes*2){
+   const offsets=[offset];if(offset+chunkBytes<lastOffset)offsets.push(offset+chunkBytes);
+   const results=await Promise.allSettled(offsets.map(start=>read(start,chunkBytes)));
+   const failed=results.find(result=>result.status==='rejected');if(failed)throw failed.reason;
+  }
+  // The stable host closes the generation snapshot at EOF. Drain every middle
+  // read (including failures) before sending the final chunk on its own.
+  await read(lastOffset,total-lastOffset);
+ }else{
+  // Hosts without generation pinning retain the ordered legacy protocol.
+  let offset=chunkBytes;for(let n=1;offset<total;n++){if(n>=112)throw new Error('字体资源超限');offset=await read(offset)}
+ }
+ if(panelClosed)throw new Error('面板已关闭');
+ const face=new FontFace(family,bytes.buffer,{weight:'40 900',style});await face.load();if(panelClosed)throw new Error('面板已关闭');document.fonts.add(face);
+}
+async function fonts(){try{await bundledFont('HarmonyOS_Sans','Argo Harmony');await bundledFont('HarmonyOS_Sans_SC','Argo Harmony SC');await bundledFont('HarmonyOS_Sans_Italic','Argo Harmony','italic')}catch(e){console.warn('Argo font resource unavailable')}}
+window.addEventListener('message',event=>{if(event.source!==window.parent)return;const m=event.data;if(!m||m.jsonrpc!=='2.0')return;if(m.id!==undefined&&pending.has(m.id)){const p=pending.get(m.id);clearTimeout(p.timer);pending.delete(m.id);m.error?p.reject(protocolError(m.error)):p.resolve(m.result);queueMicrotask(resumeFontReads);return}if(m.method==='ui/notifications/tool-input'){refreshActivity();chatAttachment(m.params?.arguments?.file)}if(m.method==='ui/notifications/tool-result'){refreshActivity();const v=m.params?.result||m.params;generationBoard?.receiveToolResult(v);if(v?._meta?.attachment)chatAttachment(v._meta.attachment)}if(m.method==='ui/notifications/host-context-changed'){bridgeContext={...bridgeContext,...m.params};if(m.params?.theme)document.documentElement.style.colorScheme=m.params.theme}});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){refreshActivity();if($('workspace').value==='generation')generationBoard?.refresh();else if(!busy&&!transfer)refresh()}else{clearTimeout(refreshTimer);refreshTimer=null}});window.addEventListener('pagehide',()=>{panelClosed=true;invalidateNativeImport();closePlayback();clearTimeout(refreshTimer);const rejectPending=reads=>{for(const [id,p]of pending){if(!reads&&['argo_library_read','argo_library_stream'].includes(p.toolName))continue;clearTimeout(p.timer);pending.delete(id);p.reject(new Error('面板已关闭'))}};rejectPending(false);Promise.allSettled([...playbackDrains]).then(()=>rejectPending(true));resumeFontReads()});
+generationBoard=window.ArgoGenerationBoard?.mount($('generationBoard'),{tool,payload,show:()=>{if($('workspace').value!=='generation'){$('workspace').value='generation';$('workspace').onchange()}},ensureConnection:async()=>{if(!ready)return false;if(!pluginHost)await checkCompatibility();return await checkProjectConnection()}});
+$('workspace').onchange=()=>{updateWorkspaceMenu();closeWorkspaceMenu();const generation=$('workspace').value==='generation';document.querySelector('.filters').hidden=$('libraryViewport').hidden=$('scroll').hidden=$('libraryFooter').hidden=generation;$('generationBoard').hidden=!generation;closePlayback();message('');clearTimeout(refreshTimer);$('refresh').setAttribute('aria-label',generation?'刷新生成板':'刷新素材库');$('refresh').title=generation?'刷新生成板':'刷新素材库';generationBoard?.setActive(generation);updateLibraryEdges();if(generation&&!generationBoard)message('生成板资源尚未装配。',true);if(!generation)refresh(false,false,true)};
+(async()=>{try{if(window.parent===window)throw new Error('请从ChatGPT中的Argo Studio插件打开素材面板。');const init=await rpc('ui/initialize',{protocolVersion:'2026-01-26',appInfo:{name:'Argo Studio',version:'0.1.2'},appCapabilities:{availableDisplayModes:['fullscreen']}});bridgeContext=init.hostContext||{};if(bridgeContext.theme)document.documentElement.style.colorScheme=bridgeContext.theme;notify('ui/notifications/initialized');ready=true;await refresh();fonts()}catch(e){message(e.message,true);$('project').textContent='未连接';render()}})();
+</script></body></html>

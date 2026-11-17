@@ -96,7 +96,7 @@ for(const option of workspaceOptions){option.onclick=()=>{const same=$('workspac
 document.addEventListener('click',event=>{if(!$('workspacePicker').contains(event.target))closeWorkspaceMenu()});
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('workspaceMenu').hidden){event.preventDefault();closeWorkspaceMenu(true)}});
 let serial=0,ready=false,kind='all',revision='',projectRef='',nextOffset=null,items=[],busy=false,epoch=0,refreshTimer,searchTimer,bridgeContext={},transfer=null,thumbnailJobs=[],thumbnailActive=0,displayKey='',refreshPending=false,forceRefreshPending=false,selectionImporting=false,pluginHost=null;
-let connectionBlocked=false,messageKind='',detectedProject=null,promptedProject='',switchingProject=false;
+let connectionBlocked=true,messageKind='',detectedProject=null,promptedProject='',switchingProject=false;
 let nativeImporting=null,importContextEpoch=0,attachmentReading=false;
 let streamingAdvertisement=null;
 const refreshInterval=5000,refreshIdleWindow=30000;let refreshActiveUntil=Date.now()+refreshIdleWindow,manualRefreshPending=false;
@@ -110,7 +110,7 @@ async function tool(name,args={},terminalReceipt=false){const result=await rpc('
 function message(text,error=false,category='operation'){messageKind=category;$('message').textContent=text;$('message').classList.toggle('error',error)}
 function connectionMessage(error){
  const text=error.message||'连接暂不可用。';
- if(error.code===-32010||/Argo Host.*(?:退出|不可用)|stdio连接保留/.test(text))return '等待 Argo 重新连接。';
+ if(error.code===-32010||/Argo Host.*(?:退出|不可用)|stdio连接保留/.test(text))return '请打开 Argo 并启用本机连接。';
  if(error.code===-32011||/本机MCP已被关闭/.test(text))return '本地连接已关闭，请在 Argo 中开启。';
  if(error.code===-32012&&/撤销/.test(text))return '连接已撤销，请在 Argo 中重新连接。';
  if(error.code===-32016&&/宿主选择已变化/.test(text))return '连接目标已更换，请重新加载插件。';
@@ -163,7 +163,7 @@ function updateAssetPreview(b,item){
 }
 function render(){
  const grid=$('grid'),existing=new Map([...grid.querySelectorAll('.asset')].map(node=>[node.dataset.uri,node])),nodes=[];
- if(!items.length){const empty=document.createElement('div');empty.className='empty';empty.style.gridColumn='1/-1';empty.innerHTML='<svg viewBox="0 0 24 24">'+icon.image+'</svg>';const label=document.createElement('span');label.textContent=connectionBlocked?'等待连接':ready?'暂无素材':'正在连接…';empty.append(label);nodes.push(empty)}
+ if(!items.length){const empty=document.createElement('div');empty.className='empty';empty.style.gridColumn='1/-1';empty.innerHTML='<svg viewBox="0 0 24 24">'+icon.image+'</svg>';const label=document.createElement('span');label.textContent=connectionBlocked?($('project').textContent==='未打开工程'?'未打开工程':'Argo 未连接'):ready?'暂无素材':'正在连接…';empty.append(label);nodes.push(empty)}
  for(const item of items){
   let b=existing.get(item.uri);
   if(!b){b=document.createElement('button');b.className='asset';b.dataset.uri=item.uri;const n=document.createElement('span');n.className='name';b.append(n);
@@ -404,7 +404,7 @@ async function checkProjectConnection(){
   items=[];previews.clear();revision='';render();detectedProject=data;$('projectNotice').hidden=false;
   $('switchProject').textContent='更换到 '+data.projectName;message('检测到新项目：'+data.projectName,false,'connection');
   if(promptedProject!==data.projectRef)await approveProjectSwitch();
- }else{await clearDisconnectedLibrary('未打开工程');message('等待 Argo 打开工程。',false,'connection')}
+ }else{await clearDisconnectedLibrary('未打开工程');message('请在 Argo 打开或保存工程。',false,'connection')}
  return false;
 }
 async function refresh(more=false,force=false,manual=false,pageScope=null){
@@ -450,7 +450,7 @@ async function refresh(more=false,force=false,manual=false,pageScope=null){
   if(messageKind==='connection'||($('message').classList.contains('error')&&/当前工程与原连接不一致|MCP权限或工程绑定已变化/.test($('message').textContent)))message('');
   thumbnailJobs=items.filter(x=>!previews.has(x.uri)||Date.now()-previews.get(x.uri).at>30000);thumbnails(ticket);
   if($('workspace').value==='assets'&&pluginHost?.capabilities.includes('generation.board.proposals.v2'))await generationBoard?.observeProposals();
- }catch(e){if(pageScope&&!currentLibraryPage(pageScope))return;pluginHost=null;connectionBlocked=true;await clearDisconnectedLibrary();message(connectionMessage(e),true,'connection')}
+ }catch(e){if(pageScope&&!currentLibraryPage(pageScope))return;pluginHost=null;connectionBlocked=true;await clearDisconnectedLibrary();message(connectionMessage(e),e.code!==-32010&&e.code!==-32011,'connection')}
  finally{busy=false;if(manual){$('refresh').setAttribute('aria-busy','false');$('refresh').disabled=false}if(refreshPending){const force=forceRefreshPending,user=manualRefreshPending;refreshPending=false;forceRefreshPending=false;manualRefreshPending=false;queueMicrotask(()=>refresh(false,force,user))}else schedule()}
 }
 function thumbnails(ticket){while(thumbnailActive<2&&thumbnailJobs.length&&ticket===epoch&&!transfer){const item=thumbnailJobs.shift(),scope=projectRef,card=[...$('grid').querySelectorAll('.asset')].find(node=>node.dataset.uri===item.uri);thumbnailActive++;(async()=>{try{const result=await tool('argo_library_thumbnail',{assetID:item.assetID,projectRef:scope,sourceRevision:item.sourceRevision});if(ticket!==epoch||scope!==projectRef||!card?.isConnected||card.assetItem?.sourceRevision!==item.sourceRevision||card.assetItem?.availability!==item.availability)return;const preview={src:safeThumbnail(result._meta?.thumbnail),availability:payload(result).availability,libraryAvailability:item.availability,sourceRevision:item.sourceRevision,at:Date.now()};previews.set(item.uri,preview);while(previews.size>120)previews.delete(previews.keys().next().value);updateAssetPreview(card,card.assetItem)}catch{if(ticket===epoch)previews.delete(item.uri)}finally{thumbnailActive--;thumbnails(epoch)}})()}}
@@ -593,5 +593,5 @@ window.addEventListener('message',event=>{if(event.source!==window.parent)return
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){refreshActivity();if($('workspace').value==='generation')generationBoard?.refresh();else if(!busy&&!transfer)refresh()}else{clearTimeout(refreshTimer);refreshTimer=null}});window.addEventListener('pagehide',()=>{panelClosed=true;invalidateNativeImport();closePlayback();clearTimeout(refreshTimer);const rejectPending=reads=>{for(const [id,p]of pending){if(!reads&&['argo_library_read','argo_library_stream'].includes(p.toolName))continue;clearTimeout(p.timer);pending.delete(id);p.reject(new Error('面板已关闭'))}};rejectPending(false);Promise.allSettled([...playbackDrains]).then(()=>rejectPending(true));resumeFontReads()});
 generationBoard=window.ArgoGenerationBoard?.mount($('generationBoard'),{tool,payload,show:()=>{if($('workspace').value!=='generation'){$('workspace').value='generation';$('workspace').onchange()}},ensureConnection:async()=>{if(!ready)return false;if(!pluginHost)await checkCompatibility();return await checkProjectConnection()}});
 $('workspace').onchange=()=>{updateWorkspaceMenu();closeWorkspaceMenu();const generation=$('workspace').value==='generation';document.querySelector('.filters').hidden=$('libraryViewport').hidden=$('scroll').hidden=$('libraryFooter').hidden=generation;$('generationBoard').hidden=!generation;closePlayback();message('');clearTimeout(refreshTimer);$('refresh').setAttribute('aria-label',generation?'刷新生成板':'刷新素材库');$('refresh').title=generation?'刷新生成板':'刷新素材库';generationBoard?.setActive(generation);updateLibraryEdges();if(generation&&!generationBoard)message('生成板资源尚未装配。',true);if(!generation)refresh(false,false,true)};
-(async()=>{try{if(window.parent===window)throw new Error('请从ChatGPT中的Argo Studio插件打开素材面板。');const init=await rpc('ui/initialize',{protocolVersion:'2026-01-26',appInfo:{name:'Argo Studio',version:'0.1.1'},appCapabilities:{availableDisplayModes:['fullscreen']}});bridgeContext=init.hostContext||{};if(bridgeContext.theme)document.documentElement.style.colorScheme=bridgeContext.theme;notify('ui/notifications/initialized');ready=true;await refresh();fonts()}catch(e){message(e.message,true);$('project').textContent='未连接';render()}})();
+(async()=>{try{if(window.parent===window)throw new Error('请从ChatGPT中的Argo Studio插件打开素材面板。');const init=await rpc('ui/initialize',{protocolVersion:'2026-01-26',appInfo:{name:'Argo Studio',version:'0.1.2'},appCapabilities:{availableDisplayModes:['fullscreen']}});bridgeContext=init.hostContext||{};if(bridgeContext.theme)document.documentElement.style.colorScheme=bridgeContext.theme;notify('ui/notifications/initialized');ready=true;await refresh();fonts()}catch(e){message(e.message,true);$('project').textContent='未连接';render()}})();
 </script></body></html>
